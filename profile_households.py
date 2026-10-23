@@ -1,6 +1,5 @@
 """
 profile_households.py
-Criterion 2 profiling for the Low Carbon London smart-meter data.
 
 Reads the household readings in chunks (works on the single ~10 GB CSV or on the
 folder of 168 split CSVs), and writes small summary tables and figures to an output
@@ -16,7 +15,8 @@ Outputs (in the output folder, default ./profile_out):
     kwh_hist_2013.csv           histogram of 2013 half-hourly kWh by group (log bins) + zeros
     profile_2012.csv            average kWh in each of the 48 half-hours, by group, 2012
     dst_check.csv               readings per household on clock-change days 2013
-    fig_coverage.png, fig_kwh_hist.png, fig_profile_2012.png, fig_daily_kwh_2012.png
+
+Figures are drawn separately by make_figures.py from these tables.
 """
 import sys
 import glob
@@ -25,10 +25,6 @@ from collections import defaultdict
 
 import numpy as np
 import pandas as pd
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 
 CHUNK = 2_000_000
 BINS = np.logspace(-3, np.log10(10), 61)  # 0.001 to 10 kWh per half-hour
@@ -204,56 +200,8 @@ def main():
     with open(os.path.join(out, "summary.txt"), "w") as fh:
         fh.write(text + "\n")
 
-    # ---------- figures ----------
-    colors = {"ToU": "#2a6fdb", "Std": "#8a8a8a"}
-
-    fig, ax = plt.subplots(figsize=(9, 4))
-    for g, d in cov.groupby("grp"):
-        ax.plot(pd.to_datetime(d.month), d.households, marker="o", ms=3, label=g, color=colors.get(g))
-    ax.axvline(pd.Timestamp("2013-01-01"), color="k", lw=0.8, ls="--")
-    ax.text(pd.Timestamp("2013-01-08"), ax.get_ylim()[1] * 0.95, "tariff starts", fontsize=8, va="top")
-    ax.set_ylabel("Households with data")
-    ax.set_title("Households with readings each month")
-    ax.legend()
-    fig.tight_layout()
-    fig.savefig(os.path.join(out, "fig_coverage.png"), dpi=130)
-
-    fig, ax = plt.subplots(figsize=(9, 4))
-    mids = np.sqrt(BINS[:-1] * BINS[1:])
-    for g, counts in hist.items():
-        ax.plot(mids, counts / counts.sum(), label=f"{g} (zeros: {zeros[g] / valid2013[g]:.1%})",
-                color=colors.get(g))
-    ax.set_xscale("log")
-    ax.set_xlabel("kWh per half-hour (log scale)")
-    ax.set_ylabel("Share of non-zero readings")
-    ax.set_title("Distribution of half-hourly use, 2013")
-    ax.legend()
-    fig.tight_layout()
-    fig.savefig(os.path.join(out, "fig_kwh_hist.png"), dpi=130)
-
-    fig, ax = plt.subplots(figsize=(9, 4))
-    for g, d in prof.groupby("grp"):
-        ax.plot(d.slot / 2, d.mean_kwh, label=g, color=colors.get(g))
-    ax.set_xticks(range(0, 25, 3))
-    ax.set_xticklabels([f"{h:02d}:00" for h in range(0, 25, 3)])
-    ax.set_ylabel("Mean kWh per half-hour")
-    ax.set_title("Average daily load curve before the tariff (2012)")
-    ax.legend()
-    fig.tight_layout()
-    fig.savefig(os.path.join(out, "fig_profile_2012.png"), dpi=130)
-
-    fig, ax = plt.subplots(figsize=(9, 4))
-    sub = hh[(hh.days_2012 >= 60) & hh.grp.isin(["ToU", "Std"])]
-    data = [sub[sub.grp == g].daily_kwh_2012.dropna() for g in ["ToU", "Std"]]
-    ax.boxplot(data, showfliers=True)
-    ax.set_xticks([1, 2], ["ToU", "Std"])
-    ax.set_yscale("log")
-    ax.set_ylabel("Average daily kWh in 2012 (log scale)")
-    ax.set_title("Household daily use before the tariff")
-    fig.tight_layout()
-    fig.savefig(os.path.join(out, "fig_daily_kwh_2012.png"), dpi=130)
-
     print(f"\nWrote outputs to {out}/")
+    print("Next: python make_figures.py", out, "<Tariffs.xlsx> figures")
 
 
 if __name__ == "__main__":
