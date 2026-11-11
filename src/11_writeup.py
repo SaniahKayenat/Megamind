@@ -113,6 +113,32 @@ measure coincident network-peak savings and actual operating costs before a broa
 - Low-event signed change: **{low['effect_kw']:.4f} kW/home**, 95% CI **{interval(low['ci_kw'],4)}**.
 - Low signed percent change: **{low['pct']:.2f}%**.
 
+## The main calculation, step by step
+
+1. Mean ToU High household score: **{high['mean_tou']:.8f} kWh per half-hour**.
+2. Mean Std High household score: **{high['mean_std']:.8f} kWh per half-hour**.
+3. Subtract Std from ToU: **Delta = {high['effect_kwh']:.8f} kWh per half-hour**.
+   This compares the groups' changes from their own normal use, not their raw demand.
+4. Convert half-hour energy to power by multiplying by two:
+   **signed change = {high['effect_kw']:.8f} kW**. Reverse its sign to describe a cut:
+   **reduction = {high['reduction_kw']:.8f} kW**.
+5. Divide Delta by the mean ToU normal-use value,
+   **{high['normal_tou']:.8f} kWh per half-hour**, and multiply by 100:
+   signed change **{high['pct']:.4f}%**, or reduction **{high['reduction_pct']:.4f}%**.
+6. Scale the reduction to {contexts['scale_households']:,} similar homes and divide
+   kW by 1,000: **{high['reduction_mw_50k']:.6f} MW** during these event hours.
+7. The bootstrap interval for Delta is **{interval(high['ci_kwh'],8)} kWh per half-hour**.
+   Multiplying by minus two and reversing endpoints gives the reduction interval
+   **{interval(high['ci_reduction_kw'],8)} kW**.
+8. Its upper endpoint, **{high['ci_reduction_kw'][1]:.8f} kW**, is below the fixed central
+   threshold, **{contexts['thresholds_kw']['central']:.3f} kW**. The rule therefore returns
+   **{d['decision_central']}**, despite evidence that demand does fall.
+
+For Low events the same subtraction uses mean scores {low['mean_tou']:.8f} (ToU)
+and {low['mean_std']:.8f} (Std). Delta is **{low['effect_kwh']:.8f} kWh per half-hour**,
+or **{low['effect_kw']:.8f} kW**. A positive signed value means higher use. There is
+no rollout threshold for the Low question.
+
 ## All prespecified sensitivity results
 
 {chr(10).join(table)}
@@ -146,6 +172,12 @@ There are {ch['trials']:,} outer trials per tariff and {ch['inner_bootstrap_draw
 inner draws per trial. The true target in this check is the observed Delta imposed
 on the empirical populations. This is not direct knowledge of population truth.
 
+In the inherited simulation, stress-null coverage was
+{100*d['p4_simulation']['scenarios']['stress_null']['coverage']:.1f}%. This falls below the
+nominal coverage check range. That null scenario's prespecified gate criterion was
+false positives, which passed, rather than coverage. Keep this supplementary weakness
+visible instead of treating gate passage as proof of perfect calibration.
+
 ## Supporting event model
 
 The model used {model['n_events']} High events and {model['n_parameters']} parameters.
@@ -155,6 +187,8 @@ Predictors: {', '.join(model['predictors'])}. Held-out-month RMSE was
 Conclusion: **{model['conclusion']}**, but the RMSE improvement is only
 {100*model['cv_rmse_improvement_fraction']:.1f}%. Date-ordered Durbin-Watson was
 {model['durbin_watson']:.3f}; HC3 handles unequal variance, not serial dependence.
+The value below two suggests possible positive residual correlation, so coefficient
+uncertainty needs caution even though the required HC3 fit is retained.
 Influential events: {', '.join(model['influential_events']) or 'none'}.
 Coefficient and refit tables remain available for review.
 

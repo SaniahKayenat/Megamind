@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from scipy import stats
+from matplotlib.ticker import MaxNLocator
 
 from check_gate import require_gate
 from config import FIGURES, RESULTS
@@ -31,6 +32,11 @@ def assumption_figures(tou,std,tariff):
     axes[2].hist(boot,bins=45,color="#146c70",edgecolor="white")
     axes[2].set_title("Bootstrap difference of means")
     axes[2].set_xlabel("ToU minus Std (kWh per half-hour)")
+    axes[2].xaxis.set_major_locator(MaxNLocator(4))
+    for ax in axes:
+        ax.tick_params(labelsize=9)
+        ax.xaxis.label.set_fontsize(9)
+        ax.yaxis.label.set_fontsize(9)
     fig.suptitle(f"{tariff} events: assumptions and sampling uncertainty")
     fig.tight_layout()
     fig.savefig(FIGURES/f"assumptions_{tariff.lower()}.png",dpi=160)

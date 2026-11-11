@@ -1,0 +1,72 @@
+{
+  "status": "passed",
+  "source_commit": "bcc72c225efa4d626ad24235a2bd0ec1b72ce5bb",
+  "scope": "fresh local clone, clean Python environment, supplied prepared matrix and frozen calibration",
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "started_utc": "2026-11-11T03:00:13.721352+00:00",
+  "finished_utc": "2026-11-11T03:01:33.816420+00:00",
+  "checked_outputs": {
+    "results/results.json": {
+      "expected_sha256": "0020cc6683f21b2c3b3b55fe0fbfb3f53156839e7054399707b42182a60fa807",
+      "actual_sha256": "0020cc6683f21b2c3b3b55fe0fbfb3f53156839e7054399707b42182a60fa807",
+      "exact_match": true
+    },
+    "results/boot_high.npy": {
+      "expected_sha256": "f5e648329b5cc161d71c39415bd66f98286966987196c63c26bfdd11ac6ac9a5",
+      "actual_sha256": "f5e648329b5cc161d71c39415bd66f98286966987196c63c26bfdd11ac6ac9a5",
+      "exact_match": true
+    },
+    "results/boot_low.npy": {
+      "expected_sha256": "e1de97692937eaf1d4857e4ad0a9d65e40d3673b1533219b687cd126d9e474aa",
+      "actual_sha256": "e1de97692937eaf1d4857e4ad0a9d65e40d3673b1533219b687cd126d9e474aa",
+      "exact_match": true
+    },
+    "results/coverage_trials.csv": {
+      "expected_sha256": "4dcd921a248e9c6dd2cad387050b2aba8c8e27f1a2509bf2e3e801041b50d267",
+      "actual_sha256": "4dcd921a248e9c6dd2cad387050b2aba8c8e27f1a2509bf2e3e801041b50d267",
+      "exact_match": true
+    },
+    "results/sensitivity_table.csv": {
+      "expected_sha256": "28e172ace253f2adfe35ee5638d5c5133af848f84ed9bcedb9783b2e6ab2b4d3",
+      "actual_sha256": "28e172ace253f2adfe35ee5638d5c5133af848f84ed9bcedb9783b2e6ab2b4d3",
+      "exact_match": true
+    },
+    "results/estimates.csv": {
+      "expected_sha256": "15742aad478028895b6324f079873af3bb1bbdf334efaf07c1e596bf20d518e9",
+      "actual_sha256": "15742aad478028895b6324f079873af3bb1bbdf334efaf07c1e596bf20d518e9",
+      "exact_match": true
+    },
+    "results/regression_coefficients.csv": {
+      "expected_sha256": "f521a52bd7c43daf49d7df41059af4efd5df388f6ad64a8fbb9851bba4ffc522",
+      "actual_sha256": "f521a52bd7c43daf49d7df41059af4efd5df388f6ad64a8fbb9851bba4ffc522",
+      "exact_match": true
+    },
+    "results/regression_cv_predictions.csv": {
+      "expected_sha256": "feacd4256dfee3e1883fc5b35ac6f8d396256bed849ad24c1dc8d04e0c4137b2",
+      "actual_sha256": "feacd4256dfee3e1883fc5b35ac6f8d396256bed849ad24c1dc8d04e0c4137b2",
+      "exact_match": true
+    },
+    "figures/decision.png": {
+      "expected_sha256": "8f2aaa3299ae13ab706ca27e9b4c85eb1c774d8d765fcc8bdbf6bb3f9f486e69",
+      "actual_sha256": "8f2aaa3299ae13ab706ca27e9b4c85eb1c774d8d765fcc8bdbf6bb3f9f486e69",
+      "exact_match": true
+    },
+    "figures/assumptions_high.png": {
+      "expected_sha256": "893041ddb61496b2d84c086da8ee731d04fded0a4e38ae46dab539953a38a18d",
+      "actual_sha256": "893041ddb61496b2d84c086da8ee731d04fded0a4e38ae46dab539953a38a18d",
+      "exact_match": true
+    },
+    "figures/assumptions_low.png": {
+      "expected_sha256": "492f63da18474183cc38aab54df8e70f2a5c81d5f6669491d837ff0e696b3c50",
+      "actual_sha256": "492f63da18474183cc38aab54df8e70f2a5c81d5f6669491d837ff0e696b3c50",
+      "exact_match": true
+    },
+    "figures/model_diagnostics.png": {
+      "expected_sha256": "2ff3cf5a35d94a39a66415b9693bb3170c62119eecb0511ef043e7cc4e69507e",
+      "actual_sha256": "2ff3cf5a35d94a39a66415b9693bb3170c62119eecb0511ef043e7cc4e69507e",
+      "exact_match": true
+    }
+  },
+  "raw_download_reproduction": false,
+  "original_historical_git_order_verified": false
+}

@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 from scipy import stats
+from matplotlib.ticker import MaxNLocator
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from statsmodels.stats.stattools import durbin_watson
 
@@ -114,6 +115,11 @@ def main():
     axes[2].stem(np.arange(len(d)),cooks)
     axes[2].axhline(4/len(d),color="#b45309",ls="--")
     axes[2].set(xlabel="Events in date order",ylabel="Cook's distance",title="Influential events")
+    axes[0].xaxis.set_major_locator(MaxNLocator(4))
+    for ax in axes:
+        ax.tick_params(labelsize=9)
+        ax.xaxis.label.set_fontsize(9)
+        ax.yaxis.label.set_fontsize(9)
     fig.tight_layout(); fig.savefig(FIGURES/"model_diagnostics.png",dpi=170); plt.close(fig)
     save_result("regression",result)
     print(f"{len(d)} High events; CV model RMSE={rmse:.6g}, baseline={baseline:.6g}. {conclusion}")

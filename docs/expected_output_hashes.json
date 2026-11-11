@@ -8,7 +8,7 @@
   "results/regression_coefficients.csv": "f521a52bd7c43daf49d7df41059af4efd5df388f6ad64a8fbb9851bba4ffc522",
   "results/regression_cv_predictions.csv": "feacd4256dfee3e1883fc5b35ac6f8d396256bed849ad24c1dc8d04e0c4137b2",
   "figures/decision.png": "8f2aaa3299ae13ab706ca27e9b4c85eb1c774d8d765fcc8bdbf6bb3f9f486e69",
-  "figures/assumptions_high.png": "893041ddb61496b2d84c086da8ee731d04fded0a4e38ae46dab539953a38a18d",
-  "figures/assumptions_low.png": "492f63da18474183cc38aab54df8e70f2a5c81d5f6669491d837ff0e696b3c50",
-  "figures/model_diagnostics.png": "2ff3cf5a35d94a39a66415b9693bb3170c62119eecb0511ef043e7cc4e69507e"
+  "figures/assumptions_high.png": "de76df6e2673a6590e03a539f2705a81e32c0745e4ca3bf9326593668a378315",
+  "figures/assumptions_low.png": "edba1607aadf270edfcee65aa3ec2ca36cfe08a15b57e686c159d89349e8697b",
+  "figures/model_diagnostics.png": "586148cd2610aa6dd577f840a15b60698fcb20a6a070453796546a46d1072453"
 }

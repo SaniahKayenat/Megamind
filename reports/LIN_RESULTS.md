@@ -10,6 +10,32 @@ The central decision rule does not support offering the tariff on these assumpti
 - Low-event signed change: **0.0332 kW/home**, 95% CI **0.0292 to 0.0375**.
 - Low signed percent change: **8.75%**.
 
+## The main calculation, step by step
+
+1. Mean ToU High household score: **-0.01253022 kWh per half-hour**.
+2. Mean Std High household score: **0.00209630 kWh per half-hour**.
+3. Subtract Std from ToU: **Delta = -0.01462652 kWh per half-hour**.
+   This compares the groups' changes from their own normal use, not their raw demand.
+4. Convert half-hour energy to power by multiplying by two:
+   **signed change = -0.02925305 kW**. Reverse its sign to describe a cut:
+   **reduction = 0.02925305 kW**.
+5. Divide Delta by the mean ToU normal-use value,
+   **0.23603076 kWh per half-hour**, and multiply by 100:
+   signed change **-6.1969%**, or reduction **6.1969%**.
+6. Scale the reduction to 50,000 similar homes and divide
+   kW by 1,000: **1.462652 MW** during these event hours.
+7. The bootstrap interval for Delta is **-0.01659700 to -0.01278468 kWh per half-hour**.
+   Multiplying by minus two and reversing endpoints gives the reduction interval
+   **0.02556936 to 0.03319401 kW**.
+8. Its upper endpoint, **0.03319401 kW**, is below the fixed central
+   threshold, **0.043 kW**. The rule therefore returns
+   **do not offer**, despite evidence that demand does fall.
+
+For Low events the same subtraction uses mean scores 0.01623243 (ToU)
+and -0.00036248 (Std). Delta is **0.01659491 kWh per half-hour**,
+or **0.03318983 kW**. A positive signed value means higher use. There is
+no rollout threshold for the Low question.
+
 ## All prespecified sensitivity results
 
 | Tariff | Run | ToU / Std | Signed effect (kW) | High reduction or Low change, 95% CI (kW) | Welch p | MW p | Cohen's d | Decision |
@@ -54,6 +80,12 @@ There are 1,000 outer trials per tariff and 2,000
 inner draws per trial. The true target in this check is the observed Delta imposed
 on the empirical populations. This is not direct knowledge of population truth.
 
+In the inherited simulation, stress-null coverage was
+93.3%. This falls below the
+nominal coverage check range. That null scenario's prespecified gate criterion was
+false positives, which passed, rather than coverage. Keep this supplementary weakness
+visible instead of treating gate passage as proof of perfect calibration.
+
 ## Supporting event model
 
 The model used 63 High events and 5 parameters.
@@ -63,6 +95,8 @@ Predictors: evening, hours, winter, low_before. Held-out-month RMSE was
 Conclusion: **timing/length predict response better than the mean baseline**, but the RMSE improvement is only
 1.4%. Date-ordered Durbin-Watson was
 1.271; HC3 handles unequal variance, not serial dependence.
+The value below two suggests possible positive residual correlation, so coefficient
+uncertainty needs caution even though the required HC3 fit is retained.
 Influential events: H016.
 Coefficient and refit tables remain available for review.
 
