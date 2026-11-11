@@ -1,0 +1,74 @@
+=== Stage 1: matrix ===
+  duplicate_rows: 105173
+  duplicate_rows_identical: 105173
+  high_night_households: 553
+  households: 5566
+  households_300plus_days_2013: {'Std': 4140, 'ToU': 1047}
+  households_by_group: {'Std': 4443, 'ToU': 1123}
+  households_mixed_label: 0
+  households_no_2013_data: {'Std': 32, 'ToU': 6}
+  night_share_cutoff_top10: 0.20912142097949982
+  null_kwh_2012: 5548
+  null_kwh_2013: 12
+  readings_kept_2013: 93024217
+  rows_2012: 60368495
+  rows_2013: 93024229
+  unknown_household_rows: 0
+  duplicates check: {'duplicate_rows': 105173, 'identical_kwh': 105173, 'different_kwh': 0}
+
+=== Households (from households_index.csv) ===
+       households  any_2013_data  days_2013_median  >=300_days_2013  night_share_2012_median  high_night_homes
+group                                                                                                         
+Std          4443           4411             365.0             4140                   0.1399               478
+ToU          1123           1117             365.0             1047                   0.1357                75
+
+=== Stage 3: event scores (window ±14) ===
+  events scored: 69; valid share of household x event pairs: 0.875
+  events with < 3 matched days: ['H001', 'H108', 'H142', 'H149', 'H153', 'H160']
+
+Why scores are invalid (household x event pairs, ±14):
+reason        < 3 matched days  < 80% event coverage   valid
+tariff group                                                
+High   Std               24901                 13795  267871
+       ToU                6346                  2942   68199
+
+Valid households per High event (counts only):
+  events with any valid score: 63 of 69
+  ToU households per usable event: min 1040, median 1091, max 1111
+  Std households per usable event: min 4055, median 4269, max 4397
+
+=== Stage 3: household scores and exclusions ===
+  main: {'High_Std': 4396, 'High_ToU': 1114}
+  A: {'High_Std': 4398, 'High_ToU': 1114}
+  B: {'High_Std': 4396, 'High_ToU': 1114}
+  C: {'High_Std': 3921, 'High_ToU': 1039}
+  D: {'High_Std': 4140, 'High_ToU': 1047}
+
+exclusions_main.csv
+tariff group  households  dropped: no 2013 data  dropped: no valid events  dropped: fewer than 5 valid events  kept
+  High   Std        4443                     32                         6                                   9  4396
+  High   ToU        1123                      6                         0                                   3  1114
+
+exclusions_A.csv
+tariff group  households  dropped: no 2013 data  dropped: no valid events  dropped: fewer than 5 valid events  kept
+  High   Std        4443                     32                         6                                   7  4398
+  High   ToU        1123                      6                         0                                   3  1114
+
+exclusions_B.csv
+tariff group  households  dropped: no 2013 data  dropped: no valid events  dropped: fewer than 5 valid events  kept
+  High   Std        4443                     32                         6                                   9  4396
+  High   ToU        1123                      6                         0                                   3  1114
+
+exclusions_C.csv
+tariff group  households  dropped: high night-use home  dropped: no 2013 data  dropped: no valid events  dropped: fewer than 5 valid events  kept
+  High   Std        4443                           476                     32                         6                                   8  3921
+  High   ToU        1123                            75                      6                         0                                   3  1039
+
+exclusions_D.csv
+tariff group  households  dropped: fewer than 300 days of 2013 data  dropped: no 2013 data  dropped: no valid events  dropped: fewer than 5 valid events  kept
+  High   Std        4443                                        271                     32                         0                                   0  4140
+  High   ToU        1123                                         70                      6                         0                                   0  1047
+
+Valid events per household (main), median [min-max]:
+  High Std: 63 [5-63]
+  High ToU: 63 [7-63]

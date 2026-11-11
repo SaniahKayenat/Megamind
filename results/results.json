@@ -1,0 +1,282 @@
+{
+  "p1_event_scores_w14": {
+    "events_scored": 69,
+    "events_with_fewer_than_3_matched_days": [
+      "H001",
+      "H108",
+      "H142",
+      "H149",
+      "H153",
+      "H160"
+    ],
+    "valid_scores": 336070,
+    "valid_share": 0.8750592364615393
+  },
+  "p1_event_scores_w21": {
+    "events_scored": 69,
+    "events_with_fewer_than_3_matched_days": [
+      "H153",
+      "H160"
+    ],
+    "valid_scores": 356991,
+    "valid_share": 0.929533346873096
+  },
+  "p1_events": {
+    "high_dropped_w14": [
+      "2013-01-07",
+      "2013-09-29",
+      "2013-12-08",
+      "2013-12-15",
+      "2013-12-21",
+      "2013-12-28"
+    ],
+    "high_dropped_w21": [
+      "2013-12-21",
+      "2013-12-28"
+    ],
+    "high_dropped_w7": 16,
+    "high_event_lengths_hours": {
+      "12.0": 7,
+      "24.0": 1,
+      "3.0": 26,
+      "4.0": 1,
+      "6.0": 34
+    },
+    "high_share_17_to_23": 0.5178,
+    "high_usable_w14": 63,
+    "low_dropped_w14": 15,
+    "low_dropped_w21": 5,
+    "low_usable_w14": 77,
+    "median_matched_days_high_w14": 9.0,
+    "n_events_high": 69,
+    "n_events_low": 92,
+    "n_off_grid_events": 8,
+    "normal_days": 212,
+    "normal_days_by_type": {
+      "weekday": 144,
+      "weekend": 68
+    },
+    "off_grid_dates": [
+      "2013-01-29",
+      "2013-02-09",
+      "2013-03-21"
+    ],
+    "tariff_half_hours": {
+      "High": 788,
+      "Low": 1660,
+      "Normal": 15072
+    }
+  },
+  "p1_household_scores_A": {
+    "High_Std": 4398,
+    "High_ToU": 1114
+  },
+  "p1_household_scores_B": {
+    "High_Std": 4396,
+    "High_ToU": 1114
+  },
+  "p1_household_scores_C": {
+    "High_Std": 3921,
+    "High_ToU": 1039
+  },
+  "p1_household_scores_D": {
+    "High_Std": 4140,
+    "High_ToU": 1047
+  },
+  "p1_household_scores_main": {
+    "High_Std": 4396,
+    "High_ToU": 1114
+  },
+  "p1_matrix": {
+    "duplicate_rows": 105173,
+    "duplicate_rows_identical": 105173,
+    "high_night_households": 553,
+    "households": 5566,
+    "households_300plus_days_2013": {
+      "Std": 4140,
+      "ToU": 1047
+    },
+    "households_by_group": {
+      "Std": 4443,
+      "ToU": 1123
+    },
+    "households_mixed_label": 0,
+    "households_no_2013_data": {
+      "Std": 32,
+      "ToU": 6
+    },
+    "night_share_cutoff_top10": 0.20912142097949982,
+    "null_kwh_2012": 5548,
+    "null_kwh_2013": 12,
+    "readings_kept_2013": 93024217,
+    "rows_2012": 60368495,
+    "rows_2013": 93024229,
+    "unknown_household_rows": 0
+  },
+  "p4_distribution": {
+    "bootstrap_B": 199,
+    "households": 200,
+    "households_replaced": [
+      {
+        "dropped": "MAC003627",
+        "nonzero_readings": 0,
+        "replacement": "MAC004517"
+      }
+    ],
+    "households_std": 168,
+    "households_tou": 32,
+    "median_aic_diff_ln_minus_ga": -79.84524818095218,
+    "median_ln_sigma": 0.750475959104199,
+    "median_skew_log": 0.31402470477148803,
+    "median_zero_share": 0.0,
+    "qq_households": {
+      "p10": "MAC002660",
+      "p50": "MAC000192",
+      "p90": "MAC000003",
+      "worst": "MAC004346"
+    },
+    "readings_per_household": 500,
+    "share_lognormal_lower_aic": 0.86,
+    "share_not_rejected_5pct_gamma": 0.01,
+    "share_not_rejected_5pct_lognormal": 0.035,
+    "sigma_day_median": 0.2760912355848076
+  },
+  "p4_fit_breaks": {
+    "ga_median_ratio_obs_to_model_q1": 2.826488687313156,
+    "ga_median_ratio_obs_to_model_q50": 0.8516373447271053,
+    "ga_median_ratio_obs_to_model_q99": 1.2904038333323014,
+    "ln_median_ratio_obs_to_model_q1": 1.4043538685497403,
+    "ln_median_ratio_obs_to_model_q50": 0.9383773119907471,
+    "ln_median_ratio_obs_to_model_q99": 1.042912513920835,
+    "ln_reject_rate_high_night_homes": 1.0,
+    "ln_reject_rate_other_homes": 0.9615384615384616,
+    "ln_share_households_q99_obs_over_model_by_20pct": 0.36,
+    "ln_share_households_q99_obs_under_model_by_20pct": 0.28,
+    "low_end_median_distinct_values_le_0p05kwh": 21.0,
+    "low_end_median_readings_le_0p05kwh": 55.5,
+    "low_end_median_share_readings_le_0p01kwh": 0.0,
+    "n_high_night_in_sample": 18,
+    "zeros_max_share": 0.4412776412776413,
+    "zeros_median_share": 0.0,
+    "zeros_pooled_share": 0.0072482814494987825,
+    "zeros_share_households_any": 0.145,
+    "zeros_share_households_over_5pct": 0.04
+  },
+  "p4_simulation": {
+    "T_kWh_per_half_hour": 0.0215,
+    "bootstrap_resamples": 2000,
+    "scenarios": {
+      "null": {
+        "bias": -7.1834460660000006e-06,
+        "coverage": 0.949,
+        "coverage_95ci": [
+          0.9335641957120492,
+          0.9609992493573721
+        ],
+        "coverage_vs_minus_delta": 0.949,
+        "delta": 0.0,
+        "false_positive_rate": 0.059,
+        "households_std_median": 4396.0,
+        "households_tou_median": 1114.0,
+        "mean_estimate": -7.1834460660000006e-06,
+        "mean_interval_width": 0.0028049631916399996,
+        "min_detectable_effect_80pct_kw": 0.0036208862629882846,
+        "min_detectable_effect_80pct_kwh_per_hh": 0.0018104431314941423,
+        "pass": true,
+        "pass_coverage": true,
+        "pass_false_positive": true,
+        "rejection_rate": 0.059,
+        "rejection_rate_95ci": [
+          0.04601408784574914,
+          0.07536123670744732
+        ],
+        "sd_estimate": 0.0007281164029594605,
+        "trials": 1000,
+        "trials_with_clipped_households": 0,
+        "true_effect_mean": 0.0
+      },
+      "stress_null": {
+        "bias": 4.2269095979999974e-05,
+        "coverage": 0.933,
+        "coverage_95ci": [
+          0.9157875981239373,
+          0.9468983077002487
+        ],
+        "coverage_vs_minus_delta": 0.933,
+        "delta": 0.0,
+        "false_positive_rate": 0.061,
+        "households_std_median": 4396.0,
+        "households_tou_median": 1114.0,
+        "mean_estimate": 4.2269095979999974e-05,
+        "mean_interval_width": 0.006870581426219999,
+        "min_detectable_effect_80pct_kw": 0.00923309996590008,
+        "min_detectable_effect_80pct_kwh_per_hh": 0.00461654998295004,
+        "pass": true,
+        "pass_coverage": false,
+        "pass_false_positive": true,
+        "rejection_rate": 0.061,
+        "rejection_rate_95ci": [
+          0.04777956041163888,
+          0.07758045654721199
+        ],
+        "sd_estimate": 0.001856664652534002,
+        "trials": 1000,
+        "trials_with_clipped_households": 0,
+        "true_effect_mean": 0.0
+      },
+      "stress_threshold": {
+        "bias": -3.395700000000172e-05,
+        "coverage": 0.946,
+        "coverage_95ci": [
+          0.9302075210460795,
+          0.9583788854148602
+        ],
+        "coverage_vs_minus_delta": 0.946,
+        "delta": 0.0215,
+        "households_std_median": 4396.0,
+        "households_tou_median": 1114.0,
+        "mean_estimate": -0.021533956999999996,
+        "mean_interval_width": 0.00690286579,
+        "pass": true,
+        "pass_coverage": true,
+        "power": 0.998,
+        "rejection_rate": 0.998,
+        "rejection_rate_95ci": [
+          0.9927370411104123,
+          0.9994513678975429
+        ],
+        "sd_estimate": 0.0018618645255502621,
+        "trials": 1000,
+        "trials_with_clipped_households": 0,
+        "true_effect_mean": -0.021500000000000005
+      },
+      "threshold": {
+        "bias": 3.724689999999829e-05,
+        "coverage": 0.947,
+        "coverage_95ci": [
+          0.9313250610861062,
+          0.9592536915776607
+        ],
+        "coverage_vs_minus_delta": 0.947,
+        "delta": 0.0215,
+        "households_std_median": 4396.0,
+        "households_tou_median": 1114.0,
+        "mean_estimate": -0.0214627531,
+        "mean_interval_width": 0.0027464911000000002,
+        "pass": true,
+        "pass_coverage": true,
+        "power": 1.0,
+        "rejection_rate": 1.0,
+        "rejection_rate_95ci": [
+          0.9961731014136095,
+          1.0
+        ],
+        "sd_estimate": 0.0007063903300646172,
+        "trials": 1000,
+        "trials_with_clipped_households": 0,
+        "true_effect_mean": -0.021500000000000005
+      }
+    },
+    "sigma_day": 0.27609150000000005
+  }
+}

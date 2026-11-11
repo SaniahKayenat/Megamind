@@ -1,0 +1,10 @@
+Stage 4 Part B: simulation study
+
+scenario           trials  true effect  mean est.  rejected  coverage  pass
+null                 1000       0.0000    -0.0000     0.059     0.949   yes
+threshold            1000      -0.0215    -0.0215     1.000     0.947   yes
+stress_null          1000       0.0000     0.0000     0.061     0.933   yes
+stress_threshold     1000      -0.0215    -0.0215     0.998     0.946   yes
+
+Pass ranges: false positives 3.6%-6.4% (delta = 0); coverage 93.6%-96.4% (delta = T).
+Effects in kWh per half-hour, ToU minus Std (negative = ToU uses less). T = 0.043 kW = 0.0215 kWh per half-hour.

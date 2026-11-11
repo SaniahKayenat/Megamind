@@ -1,0 +1,38 @@
+Stage 4 Part A summary (49 s)
+
+households: 200
+households_tou: 32
+households_std: 168
+readings_per_household: 500
+households_replaced: [{'dropped': 'MAC003627', 'nonzero_readings': 0, 'replacement': 'MAC004517'}]
+bootstrap_B: 199
+share_lognormal_lower_aic: 0.86
+median_aic_diff_ln_minus_ga: -79.84524818095218
+share_not_rejected_5pct_lognormal: 0.035
+share_not_rejected_5pct_gamma: 0.01
+median_zero_share: 0.0
+median_ln_sigma: 0.750475959104199
+median_skew_log: 0.31402470477148803
+sigma_day_median: 0.2760912355848076
+qq_households: {'p10': 'MAC002660', 'p50': 'MAC000192', 'p90': 'MAC000003', 'worst': 'MAC004346'}
+
+Where the fit breaks:
+zeros_median_share: 0.0
+zeros_pooled_share: 0.0072482814494987825
+zeros_max_share: 0.4412776412776413
+zeros_share_households_any: 0.145
+zeros_share_households_over_5pct: 0.04
+low_end_median_share_readings_le_0p01kwh: 0.0
+low_end_median_distinct_values_le_0p05kwh: 21.0
+low_end_median_readings_le_0p05kwh: 55.5
+ln_median_ratio_obs_to_model_q1: 1.4043538685497403
+ln_median_ratio_obs_to_model_q50: 0.9383773119907471
+ln_median_ratio_obs_to_model_q99: 1.042912513920835
+ga_median_ratio_obs_to_model_q1: 2.826488687313156
+ga_median_ratio_obs_to_model_q50: 0.8516373447271053
+ga_median_ratio_obs_to_model_q99: 1.2904038333323014
+ln_share_households_q99_obs_over_model_by_20pct: 0.36
+ln_share_households_q99_obs_under_model_by_20pct: 0.28
+ln_reject_rate_high_night_homes: 1.0
+ln_reject_rate_other_homes: 0.9615384615384616
+n_high_night_in_sample: 18

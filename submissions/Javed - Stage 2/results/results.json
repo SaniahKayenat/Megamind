@@ -1,0 +1,48 @@
+{
+  "p1_events": {
+    "tariff_half_hours": {
+      "Normal": 15072,
+      "Low": 1660,
+      "High": 788
+    },
+    "n_events_high": 69,
+    "n_events_low": 92,
+    "high_event_lengths_hours": {
+      "3.0": 26,
+      "4.0": 1,
+      "6.0": 34,
+      "12.0": 7,
+      "24.0": 1
+    },
+    "high_share_17_to_23": 0.5178,
+    "off_grid_dates": [
+      "2013-01-29",
+      "2013-02-09",
+      "2013-03-21"
+    ],
+    "n_off_grid_events": 8,
+    "normal_days": 212,
+    "normal_days_by_type": {
+      "weekday": 144,
+      "weekend": 68
+    },
+    "high_dropped_w14": [
+      "2013-01-07",
+      "2013-09-29",
+      "2013-12-08",
+      "2013-12-15",
+      "2013-12-21",
+      "2013-12-28"
+    ],
+    "low_dropped_w14": 15,
+    "high_usable_w14": 63,
+    "low_usable_w14": 77,
+    "median_matched_days_high_w14": 9.0,
+    "high_dropped_w21": [
+      "2013-12-21",
+      "2013-12-28"
+    ],
+    "low_dropped_w21": 5,
+    "high_dropped_w7": 16
+  }
+}
