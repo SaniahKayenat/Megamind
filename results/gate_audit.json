@@ -1,0 +1,32 @@
+{
+  "checkpoint": "7341120911a7358d1cf055e20cee50ce3b945928",
+  "evidence_sha256": {
+    "docs/decisions.md": "ff32ffc6de08535c4beb8598e6a45d46f8d6bdaf3c8f68796deefcaa3042e48e",
+    "results/simulation_trials.csv": "c20b0957f054d3168618c560be132bfd48ad235d0d8e0cda4a242c70cf752523",
+    "results/dist_fits.csv": "be576cd93fd97a1d791f1967e3e2592ab5911b32267700c0865ec02c704bb46c"
+  },
+  "checks": {
+    "null": {
+      "metric": "rejected",
+      "rate": 0.059,
+      "pass": true
+    },
+    "threshold": {
+      "metric": "covers_true",
+      "rate": 0.947,
+      "pass": true
+    },
+    "stress_null": {
+      "metric": "rejected",
+      "rate": 0.061,
+      "pass": true
+    },
+    "stress_threshold": {
+      "metric": "covers_true",
+      "rate": 0.946,
+      "pass": true
+    }
+  },
+  "historical_preregistration_verified": false,
+  "scope": "continuation only; inherited High simulation"
+}

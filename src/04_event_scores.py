@@ -1,5 +1,5 @@
 """
-04_event_scores.py - score every household on every High event.
+04_event_scores.py - score every household on each High and Low event.
 
     python src/04_event_scores.py --window 14     # main analysis
     python src/04_event_scores.py --window 21     # sensitivity run A
@@ -21,6 +21,7 @@ import pandas as pd
 
 from config import EVENTS, H2013, HOUSEHOLDS, MATCHED, RESULTS, TARIFFS_USED
 from pipeline_lib import event_slots, save_result, score_event
+from check_gate import require_gate
 
 
 def main():
@@ -28,13 +29,14 @@ def main():
     ap.add_argument("--window", type=int, default=14, help="matched days within +/- this many days")
     ap.add_argument("--mmap", action="store_true", help="read the matrix from disk instead of loading it (low RAM)")
     args = ap.parse_args()
+    require_gate()  # the continuation's decisions and inherited calibration are committed
 
     hh = pd.read_csv(HOUSEHOLDS).sort_values("row")
     H = np.load(H2013, mmap_mode="r" if args.mmap else None)
     assert H.shape[0] == len(hh), "matrix and households_index.csv disagree; rerun 03_matrix.py"
 
     ev = pd.read_csv(EVENTS)
-    ev = ev[ev.tariff.isin(TARIFFS_USED)]          # High events only
+    ev = ev[ev.tariff.isin(TARIFFS_USED)]
     md = pd.read_csv(MATCHED)
     md = md[md.shift_days.abs() <= args.window]
     shifts = md.groupby("event_id").shift_days.apply(list).to_dict()
@@ -56,7 +58,8 @@ def main():
         }))
     out = pd.concat(parts, ignore_index=True)
     path = RESULTS / f"event_scores_w{args.window}.csv.gz"
-    out.to_csv(path, index=False, float_format="%.6g")
+    out.to_csv(path, index=False, float_format="%.17g",
+               compression={"method": "gzip", "mtime": 0})
 
     summary = {
         "events_scored": int(len(ev)),

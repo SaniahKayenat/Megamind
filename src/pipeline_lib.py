@@ -8,11 +8,15 @@ method used on the real data.
 import json
 import os
 import warnings
+import csv
+import subprocess
+from datetime import datetime, timezone
 
 import numpy as np
 import pandas as pd
 
-from config import (COVER_MIN, DAY_COVER_MIN, MIN_MATCHED_DAYS, RESULTS_JSON)
+from config import (COVER_MIN, DAY_COVER_MIN, MIN_MATCHED_DAYS, RESULTS_JSON,
+                    RESULTS, ROOT, TEST_LOG)
 
 
 # ---------------------------------------------------------------- reading raw data
@@ -113,7 +117,12 @@ def save_result(key, value):
     if RESULTS_JSON.exists():
         data = json.loads(RESULTS_JSON.read_text())
     data[key] = value
-    RESULTS_JSON.write_text(json.dumps(data, indent=2, sort_keys=True, default=_jsonable))
+    # Replace atomically: an interrupted write cannot truncate the shared dictionary.
+    # Scripts run sequentially, so a later stage cannot overwrite a concurrent writer.
+    temp = RESULTS_JSON.with_suffix(".tmp")
+    temp.write_text(json.dumps(data, indent=2, sort_keys=True, default=_jsonable,
+                               allow_nan=False) + "\n")
+    temp.replace(RESULTS_JSON)
 
 
 def _jsonable(x):
@@ -123,4 +132,52 @@ def _jsonable(x):
         return float(x)
     if isinstance(x, np.ndarray):
         return x.tolist()
+    if isinstance(x, np.bool_):
+        return bool(x)
     raise TypeError(type(x))
+
+
+def group_scores(variant="main", tariff="High"):
+    """Read identical, validated household inputs for Lin and Arpan.
+
+    Every household has equal weight. An event-rich household is not counted as
+    multiple independent observations. Fail on corrupt inputs rather than dropping
+    problematic rows silently. The percentage denominator follows the fixed plan.
+    """
+    if variant not in {"main", "A", "B", "C", "D"} or tariff not in {"High", "Low"}:
+        raise ValueError("Unknown variant or tariff")
+    d = pd.read_csv(RESULTS / f"household_scores_{variant}.csv")
+    d = d[d.tariff == tariff]
+    if d.empty or d.LCLid.duplicated().any() or set(d.group) != {"ToU", "Std"}:
+        raise ValueError(f"Invalid household table: {variant}/{tariff}")
+    if not np.isfinite(d[["score", "normal_use"]].to_numpy()).all():
+        raise ValueError("Non-finite household input; fix upstream, never replace with zero")
+    tou = d.loc[d.group == "ToU", "score"].to_numpy(dtype=float)
+    std = d.loc[d.group == "Std", "score"].to_numpy(dtype=float)
+    normal = float(d.loc[d.group == "ToU", "normal_use"].mean())
+    if min(len(tou), len(std)) < 2 or normal <= 0:
+        raise ValueError("Need two households per group and positive normal use")
+    return tou, std, normal
+
+
+def log_test(person, hypothesis, run, test, statistic, p_value, effect, note=""):
+    """Append every test, including reruns. UTC time records execution, not data time.
+
+    The commit identifies the code baseline; notes flag inherited tests and local
+    modifications. Log files intentionally differ across reruns, unlike results.json.
+    """
+    try:
+        commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT,
+                                         text=True, stderr=subprocess.DEVNULL).strip()
+    except (OSError, subprocess.CalledProcessError):
+        commit = "unavailable"
+    fields = ["timestamp", "git_commit", "person", "hypothesis", "run", "test",
+              "statistic", "p_value", "effect", "note"]
+    TEST_LOG.parent.mkdir(parents=True, exist_ok=True)
+    exists = TEST_LOG.exists() and TEST_LOG.stat().st_size > 0
+    with TEST_LOG.open("a", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=fields)
+        if not exists:
+            writer.writeheader()
+        writer.writerow(dict(zip(fields, [datetime.now(timezone.utc).isoformat(), commit,
+            person, hypothesis, run, test, statistic, p_value, effect, note])))

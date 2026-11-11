@@ -1,5 +1,5 @@
 """
-05_household_scores.py - one score per household for High events,
+05_household_scores.py - one score per household for High and Low events,
 plus the event-level table the regression (Stage 6) uses.
 
     python src/05_household_scores.py --variant main
@@ -21,6 +21,7 @@ import pandas as pd
 
 from config import EVENTS, HOUSEHOLDS, MIN_DAYS_2013, MIN_EVENTS, RESULTS, TARIFFS_USED
 from pipeline_lib import save_result
+from check_gate import require_gate
 
 VARIANTS = {
     "main": dict(window=14, drop_off_grid=False, drop_high_night=False, min_days=None),
@@ -35,11 +36,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--variant", default="main", choices=VARIANTS)
     args = ap.parse_args()
+    require_gate()
     v = VARIANTS[args.variant]
 
     hh = pd.read_csv(HOUSEHOLDS)
     ev = pd.read_csv(EVENTS)
-    ev = ev[ev.tariff.isin(TARIFFS_USED)]          # High events only
+    ev = ev[ev.tariff.isin(TARIFFS_USED)]
     sc = pd.read_csv(RESULTS / f"event_scores_w{v['window']}.csv.gz")
 
     # ---------- filters for this variant ----------
@@ -68,7 +70,7 @@ def main():
            .reset_index())
     enough = g.n_events >= MIN_EVENTS
     scores = g[enough]
-    scores.to_csv(RESULTS / f"household_scores_{args.variant}.csv", index=False, float_format="%.6g")
+    scores.to_csv(RESULTS / f"household_scores_{args.variant}.csv", index=False, float_format="%.17g")
 
     # ---------- exclusion table ----------
     rows = []
@@ -93,7 +95,7 @@ def main():
     e = e.rename(columns={"mean_ToU": "tou_mean", "mean_Std": "std_mean", "size_ToU": "n_tou", "size_Std": "n_std"})
     e["effect"] = e.tou_mean - e.std_mean
     e = ev_keep.merge(e.reset_index(), on="event_id", how="left")
-    e.to_csv(RESULTS / f"event_effects_{args.variant}.csv", index=False, float_format="%.6g")
+    e.to_csv(RESULTS / f"event_effects_{args.variant}.csv", index=False, float_format="%.17g")
 
     summary = {f"{t}_{grp}": int(n) for (t, grp), n in scores.groupby(["tariff", "group"]).size().items()}
     save_result(f"p1_household_scores_{args.variant}", summary)

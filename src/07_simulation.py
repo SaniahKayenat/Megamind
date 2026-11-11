@@ -82,14 +82,15 @@ def load_inputs():
     sigma_day = float(fits.sd_day_mean_log.median())
 
     # kept households and their group: LCLid and group columns only (results gate)
-    kept = pd.read_csv(RESULTS / "household_scores_main.csv", usecols=["LCLid", "group"])
+    kept = pd.read_csv(RESULTS / "household_scores_main.csv", usecols=["LCLid", "group", "tariff"])
+    kept = kept[kept.tariff == "High"].drop(columns="tariff")
     hh = pd.read_csv(HOUSEHOLDS)
     kept = kept.merge(hh[["LCLid", "row"]], on="LCLid", how="left").sort_values(["group", "LCLid"])
     is_tou = (kept.group == "ToU").to_numpy()
     rows = kept.row.to_numpy()
 
     ev = pd.read_csv(EVENTS)
-    ev = ev[ev.tariff.isin(TARIFFS_USED)]
+    ev = ev[ev.tariff == "High"]  # H1 calibration remains High-only when Low scores are restored
     md = pd.read_csv(MATCHED)
     md = md[md.shift_days.abs() <= MATCH_WINDOW_MAIN]
     shifts = md.groupby("event_id").shift_days.apply(lambda s: sorted(s)).to_dict()

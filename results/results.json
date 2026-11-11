@@ -278,5 +278,37 @@
       }
     },
     "sigma_day": 0.27609150000000005
+  },
+  "results_gate": {
+    "checkpoint": "7341120911a7358d1cf055e20cee50ce3b945928",
+    "checks": {
+      "null": {
+        "metric": "rejected",
+        "pass": true,
+        "rate": 0.059
+      },
+      "stress_null": {
+        "metric": "rejected",
+        "pass": true,
+        "rate": 0.061
+      },
+      "stress_threshold": {
+        "metric": "covers_true",
+        "pass": true,
+        "rate": 0.946
+      },
+      "threshold": {
+        "metric": "covers_true",
+        "pass": true,
+        "rate": 0.947
+      }
+    },
+    "evidence_sha256": {
+      "docs/decisions.md": "ff32ffc6de08535c4beb8598e6a45d46f8d6bdaf3c8f68796deefcaa3042e48e",
+      "results/dist_fits.csv": "be576cd93fd97a1d791f1967e3e2592ab5911b32267700c0865ec02c704bb46c",
+      "results/simulation_trials.csv": "c20b0957f054d3168618c560be132bfd48ad235d0d8e0cda4a242c70cf752523"
+    },
+    "historical_preregistration_verified": false,
+    "scope": "continuation only; inherited High simulation"
   }
 }

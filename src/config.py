@@ -41,4 +41,14 @@ MIN_DAYS_2013 = 300                 # sensitivity run D
 SEED = 2013
 
 # ---------- scope ----------
-TARIFFS_USED = ["High"]  # the project studies High-price events only (Low events dropped, 10 Nov 2026)
+TARIFFS_USED = ["High", "Low"]  # restore the original blueprint scope; see dated decisions
+
+# Reporting paths and fixed inference settings. A signed effect differs from a reduction.
+FIGURES = ROOT / "figures"
+REPORTS = ROOT / "reports"
+TEST_LOG = RESULTS / "test_log.csv"
+BOOTSTRAP_DRAWS = 10_000
+COVERAGE_TRIALS = 1_000
+COVERAGE_BOOTSTRAP_DRAWS = 2_000
+THRESHOLDS_KW = {"central": 0.043, "low": 0.017, "high": 0.179}
+PRE_ANALYSIS_COMMIT = "7341120911a7358d1cf055e20cee50ce3b945928"
