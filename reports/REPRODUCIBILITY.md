@@ -1,6 +1,6 @@
 # Reproducibility check
 
-**Status: passed.** A fresh local clone at commit `bcc72c225efa4d626ad24235a2bd0ec1b72ce5bb` ran
+**Status: passed.** A fresh local clone at commit `8959958b4841b5d63a9471642c2acfd3367418c9` ran
 `python run_all.py` in a separate clean environment with the pinned packages.
 The virtual environment did not inherit system packages. The supplied prepared matrix
 and tariff workbook were copied as external inputs, with frozen Stage 4 calibration

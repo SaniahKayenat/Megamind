@@ -1,10 +1,10 @@
 {
   "status": "passed",
-  "source_commit": "bcc72c225efa4d626ad24235a2bd0ec1b72ce5bb",
+  "source_commit": "8959958b4841b5d63a9471642c2acfd3367418c9",
   "scope": "fresh local clone, clean Python environment, supplied prepared matrix and frozen calibration",
   "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
-  "started_utc": "2026-11-11T03:00:13.721352+00:00",
-  "finished_utc": "2026-11-11T03:01:33.816420+00:00",
+  "started_utc": "2026-11-11T03:05:25.184683+00:00",
+  "finished_utc": "2026-11-11T03:06:19.968783+00:00",
   "checked_outputs": {
     "results/results.json": {
       "expected_sha256": "0020cc6683f21b2c3b3b55fe0fbfb3f53156839e7054399707b42182a60fa807",
@@ -52,18 +52,18 @@
       "exact_match": true
     },
     "figures/assumptions_high.png": {
-      "expected_sha256": "893041ddb61496b2d84c086da8ee731d04fded0a4e38ae46dab539953a38a18d",
-      "actual_sha256": "893041ddb61496b2d84c086da8ee731d04fded0a4e38ae46dab539953a38a18d",
+      "expected_sha256": "de76df6e2673a6590e03a539f2705a81e32c0745e4ca3bf9326593668a378315",
+      "actual_sha256": "de76df6e2673a6590e03a539f2705a81e32c0745e4ca3bf9326593668a378315",
       "exact_match": true
     },
     "figures/assumptions_low.png": {
-      "expected_sha256": "492f63da18474183cc38aab54df8e70f2a5c81d5f6669491d837ff0e696b3c50",
-      "actual_sha256": "492f63da18474183cc38aab54df8e70f2a5c81d5f6669491d837ff0e696b3c50",
+      "expected_sha256": "edba1607aadf270edfcee65aa3ec2ca36cfe08a15b57e686c159d89349e8697b",
+      "actual_sha256": "edba1607aadf270edfcee65aa3ec2ca36cfe08a15b57e686c159d89349e8697b",
       "exact_match": true
     },
     "figures/model_diagnostics.png": {
-      "expected_sha256": "2ff3cf5a35d94a39a66415b9693bb3170c62119eecb0511ef043e7cc4e69507e",
-      "actual_sha256": "2ff3cf5a35d94a39a66415b9693bb3170c62119eecb0511ef043e7cc4e69507e",
+      "expected_sha256": "586148cd2610aa6dd577f840a15b60698fcb20a6a070453796546a46d1072453",
+      "actual_sha256": "586148cd2610aa6dd577f840a15b60698fcb20a6a070453796546a46d1072453",
       "exact_match": true
     }
   },
