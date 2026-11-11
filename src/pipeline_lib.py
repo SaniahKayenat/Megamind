@@ -9,6 +9,7 @@ import json
 import os
 import warnings
 import csv
+import fcntl
 import subprocess
 from datetime import datetime, timezone
 
@@ -57,6 +58,34 @@ def clean_chunk(raw):
 def slot_of(dt, start):
     """Half-hour index from `start` (fixed clock: readings and tariff ignore daylight saving)."""
     return ((dt - pd.Timestamp(start)) // pd.Timedelta(minutes=30)).to_numpy(np.int64)
+
+
+def insert_readings(matrix, seen, rows, cols, values):
+    """Insert first valid values, while counting duplicates even when earlier rows are Null.
+
+    `seen` tracks whether a household/time was encountered, independently of whether
+    the retained matrix value is missing. Inside a chunk choose the first non-missing
+    reading. Across chunks fill an empty cell but never replace an existing valid one.
+    Duplicate equality compares with the existing reading, or the first occurrence
+    within a new chunk; equality is exact at the matrix's float32 representation.
+    """
+    rows,cols=np.asarray(rows,dtype=np.int64),np.asarray(cols,dtype=np.int64)
+    values=np.asarray(values,dtype=matrix.dtype)
+    keys=pd.Index(rows*matrix.shape[1]+cols)
+    prior=seen[rows,cols].copy()
+    old=matrix[rows,cols].copy()
+    repeated=prior | keys.duplicated()
+    first=pd.Series(values,index=keys)
+    first=first[~first.index.duplicated()].reindex(keys).to_numpy()
+    reference=np.where(prior,old,first)
+    identical=(values==reference) | (np.isnan(values)&np.isnan(reference))
+    valid=np.flatnonzero(~np.isnan(values))
+    chosen=valid[~keys[valid].duplicated()]
+    available=np.isnan(matrix[rows[chosen],cols[chosen]])
+    chosen=chosen[available]
+    matrix[rows[chosen],cols[chosen]]=values[chosen]
+    seen[rows,cols]=True
+    return int(repeated.sum()),int((repeated&identical).sum())
 
 
 # ---------------------------------------------------------------- the event score
@@ -113,16 +142,18 @@ def event_slots(first_slot, n_slots):
 def save_result(key, value):
     """Add or replace one entry in results/results.json (every reported number goes here)."""
     RESULTS_JSON.parent.mkdir(parents=True, exist_ok=True)
-    data = {}
-    if RESULTS_JSON.exists():
-        data = json.loads(RESULTS_JSON.read_text())
-    data[key] = value
-    # Replace atomically: an interrupted write cannot truncate the shared dictionary.
-    # Scripts run sequentially, so a later stage cannot overwrite a concurrent writer.
-    temp = RESULTS_JSON.with_suffix(".tmp")
-    temp.write_text(json.dumps(data, indent=2, sort_keys=True, default=_jsonable,
-                               allow_nan=False) + "\n")
-    temp.replace(RESULTS_JSON)
+    # Lock the whole read-modify-write operation, including exploratory parallel runs.
+    # Atomic replacement alone would prevent truncation but could still lose a key.
+    with RESULTS_JSON.with_suffix(".lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        data = {}
+        if RESULTS_JSON.exists():
+            data = json.loads(RESULTS_JSON.read_text())
+        data[key] = value
+        temp = RESULTS_JSON.with_suffix(".tmp")
+        temp.write_text(json.dumps(data, indent=2, sort_keys=True, default=_jsonable,
+                                   allow_nan=False) + "\n")
+        temp.replace(RESULTS_JSON)
 
 
 def _jsonable(x):

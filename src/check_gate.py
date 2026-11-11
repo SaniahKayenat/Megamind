@@ -20,6 +20,8 @@ def require_gate():
     for name in ["docs/decisions.md", "results/simulation_trials.csv", "results/dist_fits.csv"]:
         committed = subprocess.check_output(
             ["git", "show", f"{PRE_ANALYSIS_COMMIT}:{name}"], cwd=ROOT)
+        if name == "docs/decisions.md" and not (ROOT/name).read_bytes().startswith(committed):
+            raise RuntimeError("Fixed decisions changed; preserve originals and append dated changes")
         if name != "docs/decisions.md" and committed != (ROOT / name).read_bytes():
             raise RuntimeError(f"Pre-analysis evidence changed: {name}; review and document it")
         hashes[name] = hashlib.sha256(committed).hexdigest()

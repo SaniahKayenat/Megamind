@@ -14,6 +14,9 @@ from concurrent.futures import ProcessPoolExecutor
 import json
 import os
 
+from config import ROOT
+os.environ.setdefault("MPLCONFIGDIR", str(ROOT/"tmp"/"matplotlib"))
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -80,7 +83,8 @@ def decision_figure(high):
     ax.errorbar(point, 0, xerr=[[point-lo], [hi-point]], fmt="o", color="#146c70",
                  markersize=10, capsize=9, lw=3)
     ax.annotate(f"{point:.3f} kW\n95% CI {lo:.3f} to {hi:.3f}", (point,0),
-                xytext=(0,28), textcoords="offset points", ha="center", fontsize=12)
+                xytext=(0,28), textcoords="offset points", ha="center", fontsize=12,
+                bbox={"facecolor":"white","edgecolor":"none","alpha":0.95,"pad":4})
     ax.set_xlim(min(-0.01,lo-0.025), max(0.20,hi+0.025))
     ax.set_ylim(-0.5,0.65)
     ax.set_yticks([])

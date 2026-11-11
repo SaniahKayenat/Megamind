@@ -1,3 +1,5 @@
 tariff,group,households,dropped: no 2013 data,dropped: no valid events,dropped: fewer than 5 valid events,kept
 High,Std,4443,32,6,9,4396
 High,ToU,1123,6,0,3,1114
+Low,Std,4443,32,2,14,4395
+Low,ToU,1123,6,0,3,1114

@@ -27,7 +27,7 @@ import pandas as pd
 
 from config import (H2012, H2013, HOUSEHOLDS, INTERIM, NIGHT_MIN_DAYS_2012, NIGHT_SLOTS,
                     NIGHT_TOP_SHARE, RAW_DIR, RESULTS, SLOTS_2012, SLOTS_2013, START_2012, START_2013)
-from pipeline_lib import clean_chunk, raw_files, save_result, slot_of
+from pipeline_lib import clean_chunk, raw_files, save_result, slot_of, insert_readings
 
 CHUNK = 2_000_000
 
@@ -72,6 +72,9 @@ def main():
     }
     for M, _ in mats.values():
         M[:] = np.nan
+    # A Null observation still counts as an encountered household/time. Keep this
+    # separate from NaN in the retained matrices to count cross-chunk duplicates.
+    seen_slots = {year: np.zeros(M.shape, dtype=bool) for year, (M, _) in mats.items()}
 
     stats = dict(rows_2012=0, rows_2013=0, null_2012=0, null_2013=0, unknown_household_rows=0,
                  dup_rows=0, dup_identical=0)
@@ -87,15 +90,6 @@ def main():
             for hid, g in c.groupby("LCLid").grp.unique().items():
                 labels.setdefault(hid, set()).update(g)
 
-            # duplicates inside this chunk: keep the first
-            dup = c.duplicated(["LCLid", "dt"], keep="first")
-            if dup.any():
-                first = c.groupby(["LCLid", "dt"]).kwh.transform("first")
-                same = (c.kwh == first) | (c.kwh.isna() & first.isna())
-                stats["dup_rows"] += int(dup.sum())
-                stats["dup_identical"] += int((same & dup).sum())
-                c = c[~dup]
-
             c = c.assign(row=c.LCLid.map(row_of))
             stats["unknown_household_rows"] += int(c.row.isna().sum())
             c = c[c.row.notna()]
@@ -104,18 +98,14 @@ def main():
                 d = c[c.dt.dt.year == year]
                 stats[f"rows_{year}"] += len(d)
                 stats[f"null_{year}"] += int(d.kwh.isna().sum())
-                d = d[d.kwh.notna()]
                 if d.empty:
                     continue
                 rows = d.row.to_numpy(np.int64)
                 cols = slot_of(d.dt, start)
                 vals = d.kwh.to_numpy(np.float32)
-                existing = M[rows, cols]
-                free = np.isnan(existing)
-                # a filled cell means this reading repeats one from an earlier chunk/file
-                stats["dup_rows"] += int((~free).sum())
-                stats["dup_identical"] += int(np.isclose(existing[~free], vals[~free]).sum())
-                M[rows[free], cols[free]] = vals[free]       # keep the first reading
+                duplicates, identical = insert_readings(M, seen_slots[year], rows, cols, vals)
+                stats["dup_rows"] += duplicates
+                stats["dup_identical"] += identical
     for M, _ in mats.values():
         M.flush()
 

@@ -24,6 +24,9 @@ Nothing here touches the household scores or compares ToU with Std (results gate
 import argparse
 import time
 import warnings
+import os
+from config import ROOT
+os.environ.setdefault("MPLCONFIGDIR", str(ROOT/"tmp"/"matplotlib"))
 
 import matplotlib
 matplotlib.use("Agg")

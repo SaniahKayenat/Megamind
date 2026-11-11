@@ -198,3 +198,11 @@ Leave-one-month-out cross-validation has no random step.
    retain full floating-point precision; rounding happens only in human-readable text.
 7. The supplied Git history is absent. The new local pre-analysis checkpoint proves
    order only for this continuation. It cannot certify historical preregistration.
+
+### 11 November 2026 — implementation repairs for future raw-data rebuilding
+
+After the prepared-input analysis, review identified a first-valid duplicate edge
+case and row-count placement in the inherited raw matrix writer. These are repaired
+and tested with invented inputs. The supplied matrices and inherited cleaning counts
+are unchanged because original raw CSVs are unavailable. No thresholds, inclusion
+rules or effect estimators are altered. Raw-data verification remains outstanding.

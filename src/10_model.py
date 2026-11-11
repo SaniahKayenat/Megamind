@@ -5,6 +5,9 @@ Leave-one-month-out predictions test generalisation to an unseen month and compa
 against the training mean. Calendar month is a fold label, never a predictor.
 This descriptive observational model is not a causal model of timing or a forecast.
 """
+import os
+from config import ROOT
+os.environ.setdefault("MPLCONFIGDIR", str(ROOT/"tmp"/"matplotlib"))
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -97,6 +100,7 @@ def main():
             "influential_events":d.loc[influential,"event_id"].tolist(),
             "cv_rmse_model_kwh":rmse,"cv_rmse_baseline_kwh":baseline,
             "cv_rmse_model_kw":2*rmse,"cv_rmse_baseline_kw":2*baseline,
+            "cv_rmse_improvement_fraction":1-rmse/baseline,
             "cv_folds":folds,"conclusion":conclusion}
     pd.DataFrame(rows).to_csv(RESULTS/"regression_coefficients.csv",index=False,float_format="%.17g")
     pred.to_csv(RESULTS/"regression_cv_predictions.csv",index=False,float_format="%.17g")

@@ -4,6 +4,9 @@ One-sided Welch is primary. Mann-Whitney provides a rank-based check whose null
 hypothesis differs. Every computed test, including reruns, is appended to the log.
 Q-Q plots show shape and outliers; they do not establish household independence.
 """
+import os
+from config import ROOT
+os.environ.setdefault("MPLCONFIGDIR", str(ROOT/"tmp"/"matplotlib"))
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt

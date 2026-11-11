@@ -1,3 +1,5 @@
 tariff,group,households,dropped: fewer than 300 days of 2013 data,dropped: no 2013 data,dropped: no valid events,dropped: fewer than 5 valid events,kept
 High,Std,4443,271,32,0,0,4140
 High,ToU,1123,70,6,0,0,1047
+Low,Std,4443,271,32,0,0,4140
+Low,ToU,1123,70,6,0,0,1047

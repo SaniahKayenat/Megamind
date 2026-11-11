@@ -8,3 +8,4 @@ data/interim/*
 *.partial
 tmp/
 .DS_Store
+results/results.lock

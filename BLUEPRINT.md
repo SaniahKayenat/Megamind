@@ -352,3 +352,7 @@ High-only handoff, records Nyo's inherited implementation details, clarifies sig
 effects versus reductions and conditional percentage intervals, and records the absent
 historical Git evidence. See the appended changes in docs/decisions.md and PROVENANCE.md.
 No original fixed rule above was edited.
+
+11 November 2026: repaired first-valid-duplicate handling and pre-deduplication raw
+row counting for future raw rebuilds. Supplied matrices remain unchanged; original
+CSV verification is unavailable. See the later implementation-repair entry in decisions.
