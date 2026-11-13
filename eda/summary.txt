@@ -1,0 +1,23 @@
+=== Rows (2012-2013) ===
+2012: 60,410,060 rows, 5,548 null kWh (0.01%)
+2013: 93,087,837 rows, 12 null kWh (0.00%)
+Duplicate (LCLid, DateTime) rows found within chunks: 105,173
+
+=== Households ===
+Households with mixed Std/ToU labels: 0
+Std: 4,443 households | any 2013 data 4,411 | >=180 days in 2013 4,253 | >=300 days in 2013 4,140 | >=60 days in 2012 4,407
+ToU: 1,123 households | any 2013 data 1,117 | >=180 days in 2013 1,089 | >=300 days in 2013 1,047 | >=60 days in 2012 1,116
+
+=== 2013 half-hourly kWh ===
+Std: 74,144,780 valid readings, zeros 939,581 (1.27%)
+ToU: 18,879,437 valid readings, zeros 223,082 (1.18%)
+
+=== 2012 daily kWh per household (households with >=60 days in 2012) ===
+Std: n=4,407, mean 10.29, median 8.43 (IQR 5.40-12.94) kWh/day
+ToU: n=1,116, mean 9.62, median 8.14 (IQR 5.21-12.24) kWh/day
+
+=== Clock check (readings per household-day; 48 = fixed clock, 46/50 = local time) ===
+2013-03-30: 1 readings: 3 households, 46 readings: 7 households, 47 readings: 8 households, 48 readings: 5392 households
+2013-03-31: 1 readings: 7 households, 40 readings: 1 households, 47 readings: 3 households, 48 readings: 5399 households
+2013-10-26: 1 readings: 7 households, 47 readings: 5 households, 48 readings: 5182 households
+2013-10-27: 1 readings: 4 households, 46 readings: 1 households, 47 readings: 13 households, 48 readings: 5176 households

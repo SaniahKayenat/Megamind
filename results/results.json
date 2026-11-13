@@ -489,6 +489,417 @@
     },
     "sigma_day": 0.27609150000000005
   },
+  "p5_agreement_check": {
+    "all_agree": true,
+    "decisions_across_runs": [
+      "do not offer"
+    ],
+    "sentence": "In all five runs, Welch, Mann-Whitney and the bootstrap interval point the same way: ToU households used less than Std households during High events."
+  },
+  "p5_assumptions_high": {
+    "bootstrap_draws": 10000,
+    "bootstrap_excess_kurtosis": -0.03529458061392887,
+    "bootstrap_mean_kwh": -0.014646356842163925,
+    "bootstrap_sd_kwh": 0.0009716970647448246,
+    "bootstrap_skew": -0.08428236975114134,
+    "excess_kurtosis_std": 33.16189795277028,
+    "excess_kurtosis_tou": 10.088909706516377,
+    "figures": [
+      "figures/qq_household_scores_high.png",
+      "figures/bootstrap_hist_high.png"
+    ],
+    "independence": "one value per household by design; households are the independent units. Shared event days are a remaining limitation.",
+    "normal_use_tou_kwh": 0.23603076462602804,
+    "sd_ratio_tou_over_std": 1.5037396170937016,
+    "sd_std_kwh": 0.020543187183420103,
+    "sd_tou_kwh": 0.030891604429080385,
+    "skew_std": 0.9845883765965132,
+    "skew_tou": -2.328474884731738
+  },
+  "p5_h1_main": {
+    "ci_excludes_zero": true,
+    "ci_hi_kwh": -0.0127846784440742,
+    "ci_lo_kwh": -0.016597003171415423,
+    "cohens_d": -0.6355887414867046,
+    "decision_vs_T": "do not offer",
+    "description": "main analysis (matched days within +/-14)",
+    "effect_kwh": -0.0146265241072699,
+    "mannwhitney_p": 1.005114094750607e-68,
+    "mannwhitney_u": 1619571.0,
+    "mean_std_kwh": 0.0020963037209290993,
+    "mean_tou_kwh": -0.012530220386340801,
+    "methods_agree": true,
+    "mw_supports_h1": true,
+    "n_std": 4396,
+    "n_tou": 1114,
+    "note": "",
+    "pct_of_normal_use": 6.196871891019996,
+    "prob_tou_lower": 0.669282545091588,
+    "reduction_ci_hi_kw": 0.033194006342830845,
+    "reduction_ci_lo_kw": 0.0255693568881484,
+    "reduction_kw": 0.0292530482145398,
+    "run": "main",
+    "sd_ratio_tou_over_std": 1.5037396170937016,
+    "sd_std_kwh": 0.020543187183420103,
+    "sd_tou_kwh": 0.030891604429080385,
+    "welch_df": 1372.0782346858202,
+    "welch_p": 1.9661817904250686e-47,
+    "welch_supports_h1": true,
+    "welch_t": -14.985718121893292
+  },
+  "p5_sensitivity_table": [
+    {
+      "ci_excludes_zero": true,
+      "ci_hi_kwh": -0.0127846784440742,
+      "ci_lo_kwh": -0.016597003171415423,
+      "cohens_d": -0.6355887414867046,
+      "decision_vs_T": "do not offer",
+      "description": "main analysis (matched days within +/-14)",
+      "effect_kwh": -0.0146265241072699,
+      "mannwhitney_p": 1.005114094750607e-68,
+      "mannwhitney_u": 1619571.0,
+      "mean_std_kwh": 0.0020963037209290993,
+      "mean_tou_kwh": -0.012530220386340801,
+      "methods_agree": true,
+      "mw_supports_h1": true,
+      "n_std": 4396,
+      "n_tou": 1114,
+      "note": "",
+      "pct_of_normal_use": 6.196871891019996,
+      "prob_tou_lower": 0.669282545091588,
+      "reduction_ci_hi_kw": 0.033194006342830845,
+      "reduction_ci_lo_kw": 0.0255693568881484,
+      "reduction_kw": 0.0292530482145398,
+      "run": "main",
+      "sd_ratio_tou_over_std": 1.5037396170937016,
+      "sd_std_kwh": 0.020543187183420103,
+      "sd_tou_kwh": 0.030891604429080385,
+      "welch_df": 1372.0782346858202,
+      "welch_p": 1.9661817904250686e-47,
+      "welch_supports_h1": true,
+      "welch_t": -14.985718121893292
+    },
+    {
+      "ci_excludes_zero": true,
+      "ci_hi_kwh": -0.012314804825820579,
+      "ci_lo_kwh": -0.016033913961984225,
+      "cohens_d": -0.6237012286804483,
+      "decision_vs_T": "do not offer",
+      "description": "matched days within +/-21",
+      "effect_kwh": -0.014128876659509213,
+      "mannwhitney_p": 2.28921897062053e-67,
+      "mannwhitney_u": 1628845.0,
+      "mean_std_kwh": 0.001892016603945099,
+      "mean_tou_kwh": -0.012236860055564115,
+      "methods_agree": true,
+      "mw_supports_h1": true,
+      "n_std": 4398,
+      "n_tou": 1114,
+      "note": "",
+      "pct_of_normal_use": 5.955740838126664,
+      "prob_tou_lower": 0.6675400439076682,
+      "reduction_ci_hi_kw": 0.03206782792396845,
+      "reduction_ci_lo_kw": 0.024629609651641158,
+      "reduction_kw": 0.028257753319018426,
+      "run": "A",
+      "sd_ratio_tou_over_std": 1.4856466723853081,
+      "sd_std_kwh": 0.020311824193065018,
+      "sd_tou_kwh": 0.03017619402250244,
+      "welch_df": 1378.5236017446139,
+      "welch_p": 2.0480085871177363e-46,
+      "welch_supports_h1": true,
+      "welch_t": -14.801122303391098
+    },
+    {
+      "ci_excludes_zero": true,
+      "ci_hi_kwh": -0.012614896008338206,
+      "ci_lo_kwh": -0.016422578586835955,
+      "cohens_d": -0.6177754130747585,
+      "decision_vs_T": "do not offer",
+      "description": "without the off-grid days 29 Jan, 9 Feb, 21 Mar",
+      "effect_kwh": -0.01444609097797039,
+      "mannwhitney_p": 2.3108476994485447e-65,
+      "mannwhitney_u": 1640771.0,
+      "mean_std_kwh": 0.0026458226258154792,
+      "mean_tou_kwh": -0.01180026835215491,
+      "methods_agree": true,
+      "mw_supports_h1": true,
+      "n_std": 4396,
+      "n_tou": 1114,
+      "note": "",
+      "pct_of_normal_use": 6.144100891800508,
+      "prob_tou_lower": 0.6649534912593953,
+      "reduction_ci_hi_kw": 0.03284515717367191,
+      "reduction_ci_lo_kw": 0.02522979201667641,
+      "reduction_kw": 0.02889218195594078,
+      "run": "B",
+      "sd_ratio_tou_over_std": 1.4423346657962792,
+      "sd_std_kwh": 0.021185673600123526,
+      "sd_tou_kwh": 0.030556831451703223,
+      "welch_df": 1395.4284726527703,
+      "welch_p": 5.396695143105623e-47,
+      "welch_supports_h1": true,
+      "welch_t": -14.897873806453244
+    },
+    {
+      "ci_excludes_zero": true,
+      "ci_hi_kwh": -0.01276788587810512,
+      "ci_lo_kwh": -0.01681436586140945,
+      "cohens_d": -0.6441680590477142,
+      "decision_vs_T": "do not offer",
+      "description": "without high night-use homes",
+      "effect_kwh": -0.01475597083292427,
+      "mannwhitney_p": 4.607871325327775e-65,
+      "mannwhitney_u": 1339568.0,
+      "mean_std_kwh": 0.0018538519127460642,
+      "mean_tou_kwh": -0.012902118920178205,
+      "methods_agree": true,
+      "mw_supports_h1": true,
+      "n_std": 3921,
+      "n_tou": 1039,
+      "note": "removes 10.7% of Std homes (476 of 4,443) but only 6.7% of ToU homes (75 of 1,123)",
+      "pct_of_normal_use": 6.190964146088431,
+      "prob_tou_lower": 0.6711844295382408,
+      "reduction_ci_hi_kw": 0.0336287317228189,
+      "reduction_ci_lo_kw": 0.02553577175621024,
+      "reduction_kw": 0.02951194166584854,
+      "run": "C",
+      "sd_ratio_tou_over_std": 1.5500606790187827,
+      "sd_std_kwh": 0.020139918779277097,
+      "sd_tou_kwh": 0.03121809617838939,
+      "welch_df": 1275.4715254193181,
+      "welch_p": 2.691476541750195e-44,
+      "welch_supports_h1": true,
+      "welch_t": -14.459446544380436
+    },
+    {
+      "ci_excludes_zero": true,
+      "ci_hi_kwh": -0.012504975050643371,
+      "ci_lo_kwh": -0.01620431882421369,
+      "cohens_d": -0.6941946846843124,
+      "decision_vs_T": "do not offer",
+      "description": "only households with >=300 days of 2013 data",
+      "effect_kwh": -0.014342614055930087,
+      "mannwhitney_p": 1.3606815613777222e-67,
+      "mannwhitney_u": 1417017.0,
+      "mean_std_kwh": 0.0020416044905238614,
+      "mean_tou_kwh": -0.012301009565406225,
+      "methods_agree": true,
+      "mw_supports_h1": true,
+      "n_std": 4140,
+      "n_tou": 1047,
+      "note": "",
+      "pct_of_normal_use": 6.107826355176071,
+      "prob_tou_lower": 0.6730901263790263,
+      "reduction_ci_hi_kw": 0.03240863764842738,
+      "reduction_ci_lo_kw": 0.025009950101286742,
+      "reduction_kw": 0.028685228111860174,
+      "run": "D",
+      "sd_ratio_tou_over_std": 1.6503686693837458,
+      "sd_std_kwh": 0.01779691477053924,
+      "sd_tou_kwh": 0.02937147054899078,
+      "welch_df": 1246.545216307317,
+      "welch_p": 8.048671498473244e-48,
+      "welch_supports_h1": true,
+      "welch_t": -15.114562398593385
+    }
+  ],
+  "p6_regression": {
+    "baseline_mean_effect_kw": -0.0287891746031746,
+    "baseline_mean_effect_kwh_hh": -0.0143945873015873,
+    "coefficients": {
+      "Intercept": {
+        "ci95_kw": [
+          -0.028586841306529845,
+          -0.009136053323918968
+        ],
+        "ci95_kwh_hh": [
+          -0.014293420653264922,
+          -0.004568026661959484
+        ],
+        "coef_kw": -0.018861447315224406,
+        "coef_kwh_hh": -0.009430723657612203,
+        "p_value": 0.00014402152835573743,
+        "se_hc3_kwh_hh": 0.0024810134441291026,
+        "z": -3.801157821183279
+      },
+      "evening": {
+        "ci95_kw": [
+          -0.01754421312742061,
+          0.0006849205034210066
+        ],
+        "ci95_kwh_hh": [
+          -0.008772106563710306,
+          0.0003424602517105033
+        ],
+        "coef_kw": -0.008429646311999803,
+        "coef_kwh_hh": -0.004214823155999902,
+        "p_value": 0.06988101825346021,
+        "se_hc3_kwh_hh": 0.0023251873216332927,
+        "z": -1.8126811189729277
+      },
+      "hours": {
+        "ci95_kw": [
+          -0.001008485877258942,
+          0.0012243474303860408
+        ],
+        "ci95_kwh_hh": [
+          -0.000504242938629471,
+          0.0006121737151930204
+        ],
+        "coef_kw": 0.00010793077656354935,
+        "coef_kwh_hh": 5.3965388281774675e-05,
+        "p_value": 0.8497153601695459,
+        "se_hc3_kwh_hh": 0.000284805400157514,
+        "z": 0.1894816188595043
+      },
+      "low_before": {
+        "ci95_kw": [
+          -0.005037681709237305,
+          0.018196324710309852
+        ],
+        "ci95_kwh_hh": [
+          -0.0025188408546186524,
+          0.009098162355154926
+        ],
+        "coef_kw": 0.006579321500536273,
+        "coef_kwh_hh": 0.0032896607502681365,
+        "p_value": 0.26698568708494363,
+        "se_hc3_kwh_hh": 0.002963575683381689,
+        "z": 1.110030956427054
+      },
+      "winter": {
+        "ci95_kw": [
+          -0.025371896739989255,
+          -0.005082156780299775
+        ],
+        "ci95_kwh_hh": [
+          -0.012685948369994628,
+          -0.0025410783901498877
+        ],
+        "coef_kw": -0.015227026760144516,
+        "coef_kwh_hh": -0.007613513380072258,
+        "p_value": 0.0032628509919939157,
+        "se_hc3_kwh_hh": 0.002588024591233865,
+        "z": -2.9418242028536694
+      }
+    },
+    "conclusion": "By the pre-stated rule the model beats the baseline: its leave-one-month-out RMSE is 1.4% lower (0.0200 vs 0.0203 kW), and it is better in 6 of 12 months. The margin is small, so treat the model as a rough guide to when signals work best, not a forecast.",
+    "cook_refit_all_signs_same": false,
+    "cook_refit_coefficients_kw": {
+      "Intercept": -0.01721221533998508,
+      "evening": -0.009343046349329599,
+      "hours": -7.018082164482752e-05,
+      "low_before": 0.004414336014855632,
+      "winter": -0.012554025911891102
+    },
+    "cook_refit_n_events": 62,
+    "cook_refit_sign_changes": [
+      "hours"
+    ],
+    "cook_refit_sign_changes_ci_includes_zero": true,
+    "cooks_threshold": 0.06349206349206349,
+    "cv_folds": 12,
+    "cv_folds_model_better": 6,
+    "cv_folds_with_dropped_predictor": 0,
+    "cv_improvement_pct": 1.395877826323877,
+    "cv_model_beats_baseline": true,
+    "cv_rmse_baseline_kw": 0.020298189388492725,
+    "cv_rmse_baseline_kwh_hh": 0.010149094694246363,
+    "cv_rmse_model_kw": 0.02001485146367353,
+    "cv_rmse_model_kwh_hh": 0.010007425731836765,
+    "durbin_watson": 1.271477079859105,
+    "durbin_watson_note": "well away from 2: residuals of events close in time are correlated, so the HC3 intervals are probably too narrow (see exploratory_hac)",
+    "events_per_parameter": 12.6,
+    "exploratory_hac": {
+      "coefficients": {
+        "Intercept": {
+          "ci95_kw": [
+            -0.028843280720013575,
+            -0.008879613910435237
+          ],
+          "coef_kw": -0.018861447315224406,
+          "p_value": 0.00021264203761702714,
+          "se_kwh_hh": 0.002546432863951735
+        },
+        "evening": {
+          "ci95_kw": [
+            -0.01598932650374188,
+            -0.0008699661202577289
+          ],
+          "coef_kw": -0.008429646311999803,
+          "p_value": 0.028851022873177323,
+          "se_kwh_hh": 0.0019285252819367773
+        },
+        "hours": {
+          "ci95_kw": [
+            -0.0007179544117571585,
+            0.0009338159648842572
+          ],
+          "coef_kw": 0.00010793077656354935,
+          "p_value": 0.7978444166861314,
+          "se_kwh_hh": 0.00021068886847798858
+        },
+        "low_before": {
+          "ci95_kw": [
+            -0.0030201049905004412,
+            0.016178747991572987
+          ],
+          "coef_kw": 0.006579321500536273,
+          "p_value": 0.17916394193140628,
+          "se_kwh_hh": 0.0024488782872429714
+        },
+        "winter": {
+          "ci95_kw": [
+            -0.026392152792450253,
+            -0.004061900727838781
+          ],
+          "coef_kw": -0.015227026760144516,
+          "p_value": 0.007517540432476575,
+          "se_kwh_hh": 0.0028482987749710773
+        }
+      },
+      "lags": 3,
+      "note": "EXPLORATORY, not in decisions.md: Newey-West (HAC) standard errors, 3 lags in date order, because Durbin-Watson is far from 2. No small-sample correction, so not comparable one-to-one with HC3; the HC3 result stays the main one."
+    },
+    "highest_leverage_event": {
+      "cooks_distance": 0.061795900709470886,
+      "event_id": "H073",
+      "leverage": 0.5218523532052343,
+      "start": "2013-06-07 17:00:00"
+    },
+    "hours_dropped": false,
+    "influential_events": [
+      {
+        "cooks_distance": 0.14475413235979478,
+        "event_id": "H016",
+        "start": "2013-02-03 11:00:00"
+      }
+    ],
+    "interpretation_kw": [
+      "events starting at 17:00 or 20:00, compared with other start times: 0.008 kW more cut per household (95% interval for the extra cut: -0.001 to 0.018 kW; p = 0.070)",
+      "each extra hour of event length: about the same cut (less than 0.001 kW difference) (95% interval for the extra cut: -0.001 to 0.001 kW; p = 0.850)",
+      "events in October-March, compared with April-September: 0.015 kW more cut per household (95% interval for the extra cut: 0.005 to 0.025 kW; p = 0.003)",
+      "events straight after a Low-price period, compared with other events: 0.007 kW less cut per household (95% interval for the extra cut: -0.018 to 0.005 kW; p = 0.267)"
+    ],
+    "n_events": 63,
+    "predictors": [
+      "evening",
+      "hours",
+      "winter",
+      "low_before"
+    ],
+    "r_squared": 0.15101802174684964,
+    "r_squared_adj": 0.09246754048801176,
+    "vif": {
+      "evening": 1.6072029670751031,
+      "hours": 1.027727720689702,
+      "low_before": 1.873580558195789,
+      "winter": 1.2430058547458653
+    },
+    "vif_after_drop": null,
+    "vif_limit": 5.0
+  },
   "pct_high": -6.196871891019996,
   "pct_low": 8.749967718016997,
   "reduction_high_kw": 0.0292530482145398,

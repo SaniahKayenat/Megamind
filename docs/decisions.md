@@ -206,3 +206,34 @@ case and row-count placement in the inherited raw matrix writer. These are repai
 and tested with invented inputs. The supplied matrices and inherited cleaning counts
 are unchanged because original raw CSVs are unavailable. No thresholds, inclusion
 rules or effect estimators are altered. Raw-data verification remains outstanding.
+
+### 13 November 2026 — team integration (Nyo)
+
+Recorded after all stage results existed. Nothing above is edited; no rule, threshold,
+estimator or inclusion criterion changes.
+
+1. **One repository for the whole team.** Built on Lin's integrated branch (Stages 1–4,
+   Lin's Stage 5 estimates and his supporting scripts), with Arpan's Stage 5 tests and
+   Ahmad Jawid's Stage 6 model added as the official scripts for their stages:
+   `src/09_tests.py` (Arpan, H1) and `src/10_model.py` (Ahmad Jawid). Lin's supporting
+   versions are kept and renamed `src/09b_tests_high_low.py` and
+   `src/10b_model_supporting.py`; their output files carry `_high_low` or `_supporting`
+   in the name so no file is overwritten. Both pairs agree: Arpan's H1 numbers equal
+   Lin's to full precision, and Ahmad Jawid's coefficients equal Lin's supporting fit.
+2. **Scope is not yet agreed.** Saniah's 10 Nov config and the Stage 5–6 owners worked on
+   High events only (H1). Lin's 11 Nov entry above restores High and Low (H1 and H2) as
+   in §7. Both sets of results are in the repository. The team must decide which scope
+   the report uses and record it here; until then H1 is the main result and H2 is
+   reported for information, as §8 already says.
+3. **Ahmad Jawid's changes (from README_P6.md):** an exploratory Newey–West check was
+   added because Durbin–Watson = 1.27; it is reported beside the pre-stated HC3 result,
+   never instead of it, and is logged as exploratory. No Low-event regression was fitted
+   (§11 allowed this).
+4. **Test log.** Arpan's 10 and Ahmad Jawid's 12 original test rows were appended to
+   `results/test_log.csv` unchanged, with their original timestamps. During integration
+   Arpan's script was rerun with `--no-log` only, to confirm its numbers inside the
+   repository; nothing new was logged.
+5. **Not rerun during integration:** `src/10_model.py` and `src/10b_model_supporting.py`
+   need statsmodels, which was not available in the integration environment. Their
+   committed outputs are the owners' submitted runs. The next full `python run_all.py`
+   in the pinned environment regenerates them.

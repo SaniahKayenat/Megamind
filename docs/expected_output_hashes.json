@@ -1,14 +1,15 @@
 {
-  "results/results.json": "0020cc6683f21b2c3b3b55fe0fbfb3f53156839e7054399707b42182a60fa807",
+  "results/results.json": "0456ada17b504637158489a26f0adfa8a7467bc43bbc4599af11f6661af8654f",
   "results/boot_high.npy": "f5e648329b5cc161d71c39415bd66f98286966987196c63c26bfdd11ac6ac9a5",
   "results/boot_low.npy": "e1de97692937eaf1d4857e4ad0a9d65e40d3673b1533219b687cd126d9e474aa",
   "results/coverage_trials.csv": "4dcd921a248e9c6dd2cad387050b2aba8c8e27f1a2509bf2e3e801041b50d267",
-  "results/sensitivity_table.csv": "28e172ace253f2adfe35ee5638d5c5133af848f84ed9bcedb9783b2e6ab2b4d3",
+  "results/sensitivity_table_high_low.csv": "28e172ace253f2adfe35ee5638d5c5133af848f84ed9bcedb9783b2e6ab2b4d3",
   "results/estimates.csv": "15742aad478028895b6324f079873af3bb1bbdf334efaf07c1e596bf20d518e9",
-  "results/regression_coefficients.csv": "f521a52bd7c43daf49d7df41059af4efd5df388f6ad64a8fbb9851bba4ffc522",
-  "results/regression_cv_predictions.csv": "feacd4256dfee3e1883fc5b35ac6f8d396256bed849ad24c1dc8d04e0c4137b2",
+  "results/regression_coefficients_supporting.csv": "f521a52bd7c43daf49d7df41059af4efd5df388f6ad64a8fbb9851bba4ffc522",
+  "results/regression_cv_predictions_supporting.csv": "feacd4256dfee3e1883fc5b35ac6f8d396256bed849ad24c1dc8d04e0c4137b2",
   "figures/decision.png": "8f2aaa3299ae13ab706ca27e9b4c85eb1c774d8d765fcc8bdbf6bb3f9f486e69",
   "figures/assumptions_high.png": "de76df6e2673a6590e03a539f2705a81e32c0745e4ca3bf9326593668a378315",
   "figures/assumptions_low.png": "edba1607aadf270edfcee65aa3ec2ca36cfe08a15b57e686c159d89349e8697b",
-  "figures/model_diagnostics.png": "586148cd2610aa6dd577f840a15b60698fcb20a6a070453796546a46d1072453"
+  "figures/model_diagnostics_supporting.png": "586148cd2610aa6dd577f840a15b60698fcb20a6a070453796546a46d1072453",
+  "results/sensitivity_table.csv": "9f005c914a3fbb62d16160cfcdda452da5a7cb9379ae2cbf73c283523df1d965"
 }

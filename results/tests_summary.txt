@@ -1,0 +1,24 @@
+Stage 5 tests (Arpan) - H1, High events only
+
+Main: n = 1,114 ToU, 4,396 Std
+  effect (ToU - Std) = -0.014627 kWh per half-hour
+  reduction = 0.0293 kW per household (95% CI 0.0256 to 0.0332), 6.20% of normal use
+  Welch t = -14.986, df = 1372.1, one-sided p = 1.97e-47
+  Mann-Whitney U = 1619571, one-sided p = 1.01e-68; P(ToU score < Std score) = 0.669
+  Cohen's d = -0.636
+  SD ToU 0.0309, Std 0.0205, ratio 1.50
+  Bootstrap distribution: skew -0.084, excess kurtosis -0.035
+  Decision vs T = 0.043 kW: do not offer
+
+Sensitivity runs (reduction in kW, 95% CI, Welch p, MW p, d, decision):
+  main: 1,114 / 4,396  0.0293 [0.0256, 0.0332]  1.97e-47  1.01e-68  -0.636  do not offer
+     A: 1,114 / 4,398  0.0283 [0.0246, 0.0321]  2.05e-46  2.29e-67  -0.624  do not offer
+     B: 1,114 / 4,396  0.0289 [0.0252, 0.0328]  5.40e-47  2.31e-65  -0.618  do not offer
+     C: 1,039 / 3,921  0.0295 [0.0255, 0.0336]  2.69e-44  4.61e-65  -0.644  do not offer
+     D: 1,047 / 4,140  0.0287 [0.0250, 0.0324]  8.05e-48  1.36e-67  -0.694  do not offer
+
+Run C removes 10.7% of Std homes (476 of 4,443) but only 6.7% of ToU homes (75 of 1,123).
+
+Agreement: In all five runs, Welch, Mann-Whitney and the bootstrap interval point the same way: ToU households used less than Std households during High events.
+
+Test log: not written (--no-log)

@@ -1,4 +1,4 @@
-"""Reproduce Lin's deliverables from supplied matrices with one command.
+"""Reproduce the whole Team Megamind project from supplied matrices with one command.
 
 python run_all.py                  # prepared matrices + frozen Stage 4 evidence
 python run_all.py --from-raw        # rebuild matrices from 168 household CSVs first
@@ -45,7 +45,11 @@ def main():
     # Preserve imported tests and append new executions rather than clearing the log.
     if not (ROOT/"results/test_log.csv").exists(): run("src/import_test_log.py")
     run("src/08_estimates.py","--workers",str(args.workers))
-    run("src/09_tests.py"); run("src/10_model.py"); run("src/11_writeup.py")
+    # Stage 5 (Arpan, H1 official) and Lin's supporting High+Low tests
+    run("src/09_tests.py"); run("src/09b_tests_high_low.py")
+    # Stage 6 (Ahmad Jawid, official model) and Lin's supporting model fit
+    run("src/10_model.py"); run("src/10b_model_supporting.py")
+    run("src/11_writeup.py")
     print("Finished. Open reports/START_HERE.md.",flush=True)
 
 
