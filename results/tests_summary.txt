@@ -21,4 +21,4 @@ Run C removes 10.7% of Std homes (476 of 4,443) but only 6.7% of ToU homes (75 o
 
 Agreement: In all five runs, Welch, Mann-Whitney and the bootstrap interval point the same way: ToU households used less than Std households during High events.
 
-Test log: not written (--no-log)
+Test log: test_log.csv

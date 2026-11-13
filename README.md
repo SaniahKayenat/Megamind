@@ -61,8 +61,8 @@ Every number comes from `results/results.json`.
      - download `low-carbon-london-data-168-files.zip` from the [London Datastore](https://data.london.gov.uk/dataset/smartmeter-energy-consumption-data-in-london-households-vqm0d), unzip the 168 CSVs into `data/raw/`, and use `--from-raw` below.
 3. Run everything with one command:
    ```bash
-   python run_all.py              # with H2013.npy: about 10-20 minutes
-   python run_all.py --from-raw   # from the 168 CSVs: add 1-2 hours for the matrix
+   python run_all.py              # with H2013.npy: a few minutes (measured: under 2 minutes on 2 cores)
+   python run_all.py --from-raw   # from the 168 CSVs: also builds the matrix (the guideline allows up to 2-3 hours)
    python -m pytest -q            # all automated tests
    ```
 
