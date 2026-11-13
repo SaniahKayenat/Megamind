@@ -7,25 +7,23 @@ Team: Saniah Kayenat Chowdhury, Sabrina Afrin, Ahmad Jawid Fedayi, Arpan Ojha, L
 
 **Decision.** A utility product manager has to decide whether to offer the tariff to all residential customers. The rule is to offer it only if the reduction is at least **T = 0.043 kW per household**.
 
+**Answer in one line.** Tariff households cut **0.029 kW** per household during High events (95% CI 0.026 to 0.033). That is below T, so the decision is **do not offer**.
+
 This folder is the combined team project: every stage's code, results, figures and write-up in one repository.
 
----
+## Read in this order
 
-## Main result
-
-| | Result |
-|---|---|
-| **H1, High events** (main) | ToU households used **0.029 kW less** per household (95% CI 0.026 to 0.033 kW; 6.2% of normal use). One-sided Welch p = 2.0 × 10⁻⁴⁷, Mann–Whitney p = 1.0 × 10⁻⁶⁸, Cohen's d = −0.64. |
-| **Decision against T = 0.043 kW** | The whole interval is below T, so **do not offer** the tariff. All four sensitivity runs (A–D) give 0.028–0.030 kW and the same decision. |
-| **Method check** (Stage 4 simulation) | All 4 scenarios pass: 5.9% false positives, 94.7% coverage, 100% power, and both stress tests pass. |
-| **When signals work best** (Stage 6) | Winter events get about 0.015 kW more cut per household (p = 0.003). Evening start, length and a Low period just before add little. The model beats the baseline only slightly in cross-validation (RMSE 0.0200 vs 0.0203 kW). |
-| **H2, Low events** (for information) | ToU households used 0.033 kW **more** during Low events (95% CI 0.029 to 0.037 kW). Per `decisions.md` §8, H2 has no threshold; see the open question on scope below. |
-
-Every number comes from `results/results.json`.
+| Part | What it covers | Where |
+|---|---|---|
+| **1. Before you run** | What the project is, who did each stage, what you need, installation | this file, Part 1 |
+| **2. Run** | One command, what it runs, run time, seeds | this file, Part 2 |
+| **3. After the run** | What every result means, stage by stage, with figures | **[RESULTS.md](RESULTS.md)** |
 
 ---
 
-## Who did what
+# Part 1: Before you run
+
+## Who did each stage
 
 | Stage | Owner | Code | Write-up |
 |---|---|---|---|
@@ -42,29 +40,33 @@ Every number comes from `results/results.json`.
 
 **Supporting scripts by Lin.** `src/09b_tests_high_low.py` runs the tests for High and Low events. `src/10b_model_supporting.py` is a second fit of the same regression. Their numbers match the owners' scripts: Arpan's H1 results are identical to full precision, and the regression coefficients are equal. Their outputs carry `_high_low` or `_supporting` in the file name, so no file is overwritten.
 
----
-
-## How to run
+## What you need
 
 **Python 3.12** (tested with 3.12.14). Package versions are pinned in `requirements.txt` (the six main packages) and `requirements-lock.txt` (every package, for an exact copy).
 
-1. Install:
+1. **Install Python and the packages:**
    ```bash
    python3.12 -m venv env
    source env/bin/activate            # Windows: env\Scripts\activate
    python -m pip install -r requirements-lock.txt
    ```
-2. Get the data and put it in place. Large files are not in Git.
+2. **Put the data in place.** Large files are not in Git.
    - `data/raw/Tariffs.xlsx` is already included.
    - The 2013 matrix `data/interim/H2013.npy` (390 MB) can come from either of two places:
      - copy Saniah's file into `data/interim/`; or
      - download `low-carbon-london-data-168-files.zip` from the [London Datastore](https://data.london.gov.uk/dataset/smartmeter-energy-consumption-data-in-london-households-vqm0d), unzip the 168 CSVs into `data/raw/`, and use `--from-raw` below.
-3. Run everything with one command:
-   ```bash
-   python run_all.py              # with H2013.npy: a few minutes (measured: under 2 minutes on 2 cores)
-   python run_all.py --from-raw   # from the 168 CSVs: also builds the matrix (the guideline allows up to 2-3 hours)
-   python -m pytest -q            # all automated tests
-   ```
+
+---
+
+# Part 2: Run the project
+
+From the `Megamind` folder, run everything with one command:
+
+```bash
+python run_all.py              # with H2013.npy: a few minutes (measured: under 2 minutes on 2 cores)
+python run_all.py --from-raw   # from the 168 CSVs: also builds the matrix (the guideline allows up to 2-3 hours)
+python -m pytest -q            # all automated tests
+```
 
 `run_all.py` stops at the first error. It runs these steps in order:
 
@@ -93,11 +95,9 @@ python eda/profile_households.py data/raw eda
 
 It takes 20-40 minutes. See `eda/README_EDA.md`.
 
-**Where the numbers are.** Every reported number is in `results/results.json`, written by code with `save_result()`. Every test ever run is in `results/test_log.csv`, written with `log_test()`.
-
 To check that a fresh copy reproduces the outputs exactly, run `python scripts/verify_reproduction.py`.
 
-### Random seeds
+## Random seeds
 
 Every random step uses **seed 2013**. Steps that run trials in parallel give each trial its own child seed from `SeedSequence(2013)`, so the results are the same whatever the number of cores.
 
@@ -111,7 +111,22 @@ Every random step uses **seed 2013**. Steps that run trials in parallel give eac
 | Resampling coverage check (1,000 trials × 2,000 resamples) | `src/08_estimates.py` | `SeedSequence(2013)` |
 | Leave-one-month-out cross-validation | `src/10_model.py` | none (no random step) |
 
-### Which script makes which figure
+---
+
+# Part 3: After the run
+
+The run writes four kinds of output:
+
+| Output | Where | What it is |
+|---|---|---|
+| Numbers | `results/results.json` | Every number in the report, written by code with `save_result()`. Nobody types a number by hand |
+| Tables | `results/*.csv` | Estimates, sensitivity table, regression tables, simulation trials, exclusions |
+| Test record | `results/test_log.csv` | Every test ever run, including failed and exploratory ones. Append-only |
+| Figures | `figures/` | See the table below |
+
+**[RESULTS.md](RESULTS.md) explains every result, stage by stage.** Each stage owner's README (`README_P0_P7.md`, `README_P1.md`, `README_P4.md`, `README_P5.md`, `README_P6.md`) has the full detail.
+
+## Which script makes which figure
 
 | Figure | Script |
 |---|---|
@@ -123,6 +138,8 @@ Every random step uses **seed 2013**. Steps that run trials in parallel give eac
 | `figures/assumptions_high.png`, `assumptions_low.png` | `src/09b_tests_high_low.py` |
 | `figures/reg_resid_vs_fitted.png`, `reg_qq_residuals.png`, `reg_cooks_distance.png` | `src/10_model.py` |
 | `figures/model_diagnostics_supporting.png` | `src/10b_model_supporting.py` |
+
+---
 
 ## Folder map
 
