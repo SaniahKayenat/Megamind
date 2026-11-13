@@ -29,15 +29,16 @@ Every number comes from `results/results.json`.
 
 | Stage | Owner | Code | Write-up |
 |---|---|---|---|
-| 0 Decisions, threshold T, rules | Sabrina | — (rules are coded in `src/config.py`) | `docs/decisions.md` |
+| 0 Decisions, threshold T, rules | Sabrina | — (rules are coded in `src/config.py`) | `docs/decisions.md`, `README_P0_P7.md` |
 | 1 & 3 Data pipeline: matrix, event and household scores | Saniah | `src/03_matrix.py`, `04_event_scores.py`, `05_household_scores.py`, `pipeline_lib.py` | `README_P1.md` |
 | 2 Events and matched days | Ahmad Jawid (Javed) | `src/01_events.py`, `02_matched_days.py`, `stage2_events_matched_days.ipynb` | `README_P1.md` §2 |
 | 4 Distribution fit and simulation | Nyo | `src/06_distribution.py`, `07_simulation.py`, `tests/test_stage4.py` | `README_P4.md` |
 | 5a Estimates, intervals, coverage, decision | Lin | `src/08_estimates.py`, `inference.py` | `reports/REPORT_SECTIONS.md`, `reports/LIN_RESULTS.md` |
 | 5b Hypothesis tests and sensitivity table (official H1) | Arpan | `src/09_tests.py` | `README_P5.md`, `docs/stage5_arpan/` |
 | 6 Regression: which events get bigger cuts (official) | Ahmad Jawid | `src/10_model.py`, `tests/test_10_model.py` | `README_P6.md` |
-| Report text, run-all, gate | Lin | `src/11_writeup.py`, `src/check_gate.py`, `run_all.py` | `reports/` |
-| Exploration (EDA) | team | outputs in `eda/` | `eda/summary.txt` |
+| 7 Reproducibility: run-all, requirements, seeds, data card, README | Sabrina (Lin: fresh-clone test) | `run_all.py`, `requirements*.txt` | `README_P0_P7.md`, `DATA_CARD.md`, this README |
+| Report text, gate | Lin | `src/11_writeup.py`, `src/check_gate.py` | `reports/` |
+| Exploration (EDA) | Saniah | `eda/profile_households.py`, `eda/make_figures.py` | `eda/README_EDA.md` |
 
 **Supporting scripts by Lin.** `src/09b_tests_high_low.py` runs the tests for High and Low events. `src/10b_model_supporting.py` is a second fit of the same regression. Their numbers match the owners' scripts: Arpan's H1 results are identical to full precision, and the regression coefficients are equal. Their outputs carry `_high_low` or `_supporting` in the file name, so no file is overwritten.
 
@@ -45,43 +46,83 @@ Every number comes from `results/results.json`.
 
 ## How to run
 
-1. Install Python 3.12 and the pinned packages:
+**Python 3.12** (tested with 3.12.14). Package versions are pinned in `requirements.txt` (the six main packages) and `requirements-lock.txt` (every package, for an exact copy).
+
+1. Install:
    ```bash
    python3.12 -m venv env
    source env/bin/activate            # Windows: env\Scripts\activate
    python -m pip install -r requirements-lock.txt
    ```
-2. Put the data in place. It is not in Git because it is large.
+2. Get the data and put it in place. Large files are not in Git.
    - `data/raw/Tariffs.xlsx` is already included.
-   - `data/interim/H2013.npy` (390 MB) is not included. Copy it from Saniah's `Data_pipeline` zip, at `stage1_3_saniah/data/interim/H2013.npy`.
+   - The 2013 matrix `data/interim/H2013.npy` (390 MB) can come from either of two places:
+     - copy Saniah's file into `data/interim/`; or
+     - download `low-carbon-london-data-168-files.zip` from the [London Datastore](https://data.london.gov.uk/dataset/smartmeter-energy-consumption-data-in-london-households-vqm0d), unzip the 168 CSVs into `data/raw/`, and use `--from-raw` below.
 3. Run everything with one command:
    ```bash
-   python run_all.py              # several minutes; use --workers 1 on a slow laptop
-   python -m pytest -q            # all tests
+   python run_all.py              # with H2013.npy: about 10-20 minutes
+   python run_all.py --from-raw   # from the 168 CSVs: add 1-2 hours for the matrix
+   python -m pytest -q            # all automated tests
    ```
 
 `run_all.py` stops at the first error. It runs these steps in order:
 
 1. results gate check
-2. Stage 2 events
-3. Stage 3 scores
-4. Lin's estimates
-5. Arpan's tests, then Lin's High+Low tests
-6. Ahmad Jawid's model, then Lin's supporting model
-7. write-up
+2. events and matched days
+3. matrix (`--from-raw` only)
+4. event and household scores
+5. estimates
+6. tests
+7. regression
+8. write-up
+9. EDA figures
 
-Stage 4 is not rerun each time, because the 4,000-trial simulation takes about an hour. Its committed results are checked by the gate instead. To rebuild it:
+**Stage 4 is not rerun each time.** The simulation takes about an hour, so `run_all.py` reuses its committed results and the gate checks them. To rebuild it:
 
 ```bash
-python src/06_distribution.py
-python src/07_simulation.py
+python src/06_distribution.py      # about 1 minute
+python src/07_simulation.py        # about 1 hour on 2 cores
 ```
 
-All random steps use **seed 2013**. Results are in kWh per half-hour; × 2 = kW per household.
+**EDA.** `eda/make_figures.py` runs inside `run_all.py`. The slow first EDA step reads the 10 GB of CSVs, so it is run separately, once:
 
-To check that a clean copy reproduces the outputs exactly, run `python scripts/verify_reproduction.py`.
+```bash
+python eda/profile_households.py data/raw eda
+```
 
----
+It takes 20-40 minutes. See `eda/README_EDA.md`.
+
+**Where the numbers are.** Every reported number is in `results/results.json`, written by code with `save_result()`. Every test ever run is in `results/test_log.csv`, written with `log_test()`.
+
+To check that a fresh copy reproduces the outputs exactly, run `python scripts/verify_reproduction.py`.
+
+### Random seeds
+
+Every random step uses **seed 2013**. Steps that run trials in parallel give each trial its own child seed from `SeedSequence(2013)`, so the results are the same whatever the number of cores.
+
+| Random step | Script | Seed |
+|---|---|---|
+| 200-household sample | `src/06_distribution.py` | `default_rng(2013)` |
+| 500-reading draw per household | `src/06_distribution.py` | same generator |
+| KS goodness-of-fit simulations (199 per household and model) | `src/06_distribution.py` | same generator |
+| Simulation study (4 × 1,000 trials) | `src/07_simulation.py` | `SeedSequence(2013)` |
+| Bootstrap intervals (10,000 resamples) | `src/08_estimates.py`, `src/inference.py`, `src/09_tests.py` | `default_rng(2013)` |
+| Resampling coverage check (1,000 trials × 2,000 resamples) | `src/08_estimates.py` | `SeedSequence(2013)` |
+| Leave-one-month-out cross-validation | `src/10_model.py` | none (no random step) |
+
+### Which script makes which figure
+
+| Figure | Script |
+|---|---|
+| `figures/eda/fig1_high_by_hour.png`, `fig2_load_curve_2012.png`, `figB1_coverage.png`, `figB2_kwh_distribution.png`, `figB3_daily_kwh_2012.png` | `eda/make_figures.py` |
+| `figures/stage2_matched_days.png` | `stage2_events_matched_days.ipynb` |
+| `figures/qq_p10.png`, `qq_p50.png`, `qq_p90.png`, `qq_worst.png` | `src/06_distribution.py` |
+| `figures/decision.png`, `decision.svg` | `src/08_estimates.py` |
+| `figures/qq_household_scores_high.png`, `bootstrap_hist_high.png` | `src/09_tests.py` |
+| `figures/assumptions_high.png`, `assumptions_low.png` | `src/09b_tests_high_low.py` |
+| `figures/reg_resid_vs_fitted.png`, `reg_qq_residuals.png`, `reg_cooks_distance.png` | `src/10_model.py` |
+| `figures/model_diagnostics_supporting.png` | `src/10b_model_supporting.py` |
 
 ## Folder map
 

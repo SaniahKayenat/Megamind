@@ -50,6 +50,8 @@ def main():
     # Stage 6 (Ahmad Jawid, official model) and Lin's supporting model fit
     run("src/10_model.py"); run("src/10b_model_supporting.py")
     run("src/11_writeup.py")
+    # EDA / proposal figures from the committed EDA summary tables (seconds)
+    run("eda/make_figures.py","eda","data/raw/Tariffs.xlsx","figures/eda")
     print("Finished. Open reports/START_HERE.md.",flush=True)
 
 

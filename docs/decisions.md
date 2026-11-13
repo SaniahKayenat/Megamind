@@ -237,3 +237,25 @@ estimator or inclusion criterion changes.
    need statsmodels, which was not available in the integration environment. Their
    committed outputs are the owners' submitted runs. The next full `python run_all.py`
    in the pinned environment regenerates them.
+
+### 13 November 2026 — Stage 0 completion (Sabrina's tasks, prepared by Nyo)
+
+1. **Schofield check (§2).** Schofield (2015), Chapter 4, pp. 65–67 (page numbers read
+   from the printed footers of the online PDF): households were recruited to the trial
+   "on an opt-in basis", and the dToU group was then recruited "again on an opt-in
+   basis"; those who did not join formed the non-ToU (Std) group. The thesis notes that
+   the planned equal split was not reached because of opt-in recruitment. Table 4.1
+   gives 1,119 dToU and 4,417 non-ToU households at the start. **This confirms opt-in,
+   not random assignment.** §2 stands: results apply to households likely to sign up,
+   and the 2012 comparison is evidence of comparability, not proof.
+2. **Commit order.** The team's GitHub repository (SaniahKayenat/Megamind) holds only the
+   EDA scripts (October 2026); this file was never committed there before scoring.
+   The earliest commit containing it is Lin's local checkpoint `7341120` (11 November),
+   made after Saniah's Stage 3 files existed. So the repository cannot prove the rules
+   came before the scores. Lines 1–174 of this file are byte-identical to the 9 November
+   version the team shared, and Google Drive upload dates are the only other record of
+   order. The report should state this limitation plainly.
+3. **Regression spec check (§11).** Done by Ahmad Jawid on 10 November before Stage 6
+   (README_P6.md §2): VIFs below 2, all 12 cross-validation folds estimable, no change.
+4. **Shared helpers.** `save_result` and `log_test` are both in `src/pipeline_lib.py`
+   and used by every stage from 3 onwards.
