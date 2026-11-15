@@ -9,7 +9,8 @@ import json
 import os
 import warnings
 import csv
-import fcntl
+# import fcntl
+import portalocker
 import subprocess
 from datetime import datetime, timezone
 
@@ -145,7 +146,8 @@ def save_result(key, value):
     # Lock the whole read-modify-write operation, including exploratory parallel runs.
     # Atomic replacement alone would prevent truncation but could still lose a key.
     with RESULTS_JSON.with_suffix(".lock").open("a") as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX)
+        # fcntl.flock(lock, fcntl.LOCK_EX)
+        portalocker.lock(lock, portalocker.LOCK_EX)
         data = {}
         if RESULTS_JSON.exists():
             data = json.loads(RESULTS_JSON.read_text())
